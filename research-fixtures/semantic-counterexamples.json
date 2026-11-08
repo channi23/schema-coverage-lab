@@ -1,0 +1,55 @@
+{
+  "dialect": "https://json-schema.org/draft/2020-12/schema",
+  "purpose": "Expected outcomes derived from specification; not yet executed through an independent validator",
+  "cases": [
+    {
+      "name": "triple overlap is not parity",
+      "schema": {"oneOf": [true, true, true]},
+      "tests": [{"instance": null, "valid": false}],
+      "coverage_note": "No child has a strict decision-flipping pair; root always false."
+    },
+    {
+      "name": "duplicate anyOf branches are coupled",
+      "schema": {"anyOf": [{"type": "integer"}, {"type": "integer"}]},
+      "tests": [{"instance": 1, "valid": true}, {"instance": "x", "valid": false}],
+      "coverage_note": "Both child predicates change together; unique-cause pairs are impossible."
+    },
+    {
+      "name": "weaker minimum is redundant",
+      "schema": {"allOf": [{"minimum": 0}, {"minimum": 10}]},
+      "tests": [{"instance": -1, "valid": false}, {"instance": 5, "valid": false}, {"instance": 10, "valid": true}, {"instance": "x", "valid": true}],
+      "coverage_note": "Second child has pair (5,10); first child's exclusive negative region is empty."
+    },
+    {
+      "name": "all successful anyOf annotations are needed",
+      "schema": {"anyOf": [{"properties": {"p": true}}, {"properties": {"q": true}}], "unevaluatedProperties": false},
+      "tests": [{"instance": {"p": 1, "q": 2}, "valid": true}, {"instance": {"p": 1, "r": 2}, "valid": false}]
+    },
+    {
+      "name": "equal standalone acceptance does not imply contextual interchangeability A",
+      "schema": {"allOf": [{"properties": {"p": true}}], "unevaluatedProperties": false},
+      "tests": [{"instance": {"p": 1}, "valid": true}]
+    },
+    {
+      "name": "equal standalone acceptance does not imply contextual interchangeability B",
+      "schema": {"allOf": [true], "unevaluatedProperties": false},
+      "tests": [{"instance": {"p": 1}, "valid": false}]
+    },
+    {
+      "name": "numeric assertion applicability",
+      "schema": {"minimum": 18},
+      "tests": [{"instance": "x", "valid": true}, {"instance": 17, "valid": false}, {"instance": 18, "valid": true}]
+    },
+    {
+      "name": "absent property and wrong type do not fail numeric child",
+      "schema": {"properties": {"age": {"minimum": 18}}},
+      "tests": [{"instance": {}, "valid": true}, {"instance": {"age": "x"}, "valid": true}, {"instance": {"age": 17}, "valid": false}, {"instance": null, "valid": true}]
+    },
+    {
+      "name": "local decision influence need not reach root",
+      "schema": {"allOf": [false, {"anyOf": [{"const": 0}, {"const": 1}]}]},
+      "tests": [{"instance": 0, "valid": false}, {"instance": 2, "valid": false}],
+      "coverage_note": "Inner anyOf assertion flips; root never does."
+    }
+  ]
+}
