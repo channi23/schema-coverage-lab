@@ -1,6 +1,6 @@
 # Later implementation and reproducible testing
 
-Issue #5. This stage is a planning deliverable. No production analyzer, generator, validator integration, conformance run or comparative experiment is implemented by this draft. Follow [CODEX_HANDOFF.md](../CODEX_HANDOFF.md) after review of stages 1–4. Leave all PRs unmerged.
+Issue #5. This stage is a planning deliverable. No production analyzer, generator, validator integration, conformance run or comparative experiment is implemented by this draft. The research and handoff are now consolidated on `main`. Follow [CODEX_HANDOFF.md](../CODEX_HANDOFF.md) and implement directly on `main` under the [documentation policy](DOCUMENTATION_POLICY.md).
 
 ## Proposed implementation increments
 
@@ -11,7 +11,7 @@ Issue #5. This stage is a planning deliverable. No production analyzer, generato
 | C: generation and selection | Deterministic candidate recipes, finite-domain mode, pair-aware suite reduction. | Stable output under fixed seed/input; domain-qualified infeasibility; pair replay after selection; distinct-test counts. |
 | D: experiments | Reproducible coverage/cost comparisons and optional mutations. | Equal-budget baselines, frozen corpus, raw reports, confidence/variation reporting, negative findings and limits. |
 
-Keep increments reviewable in later draft PRs or focused commits, with no automatic merge. A–C establish bounded tool behavior; D examines practical utility. Neither establishes full Draft 2020-12 support.
+Keep increments reviewable through focused commits on `main`, each accompanied by its documentation and evidence. A–C establish bounded tool behavior; D examines practical utility. Neither establishes full Draft 2020-12 support.
 
 ## Reproducibility record
 

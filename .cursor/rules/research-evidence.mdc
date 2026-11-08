@@ -1,0 +1,15 @@
+---
+description: Document all research and engineering work with reproducible evidence
+alwaysApply: true
+---
+
+# Research evidence and workflow
+
+Applies throughout this repository. Follow AGENTS.md and docs/DOCUMENTATION_POLICY.md.
+
+- Work directly on main unless the user changes this preference.
+- Include documentation with every substantive change.
+- Keep status, roadmap and evidence log accurate.
+- Separate proposed work, executed checks, proven statements and unresolved questions.
+- Record exact experimental revisions/configuration, commands, outputs and limitations.
+- Preserve source attribution, counterexamples and issue history.

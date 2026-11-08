@@ -1,6 +1,6 @@
 # Codex handoff: implement a bounded semantic coverage experiment
 
-Prepared 2026-11-08. Read [the research report](docs/research/REPORT.md), chapters [1](docs/research/01-mcdc.md), [2](docs/research/02-json-schema.md), [3](docs/research/03-set-model.md), [uncertainties](docs/research/04-uncertainties.md) and [roadmap](docs/ROADMAP.md) before implementation. Issue #4 tracks this handoff; issue #5 tracks later implementation and experiments. No PR may be merged automatically.
+Prepared 2026-11-08. Read [the research report](docs/research/REPORT.md), chapters [1](docs/research/01-mcdc.md), [2](docs/research/02-json-schema.md), [3](docs/research/03-set-model.md), [uncertainties](docs/research/04-uncertainties.md) and [roadmap](docs/ROADMAP.md) before implementation. Issue #4 tracks this handoff; issue #5 tracks later implementation and experiments. Current workflow: the user authorized merging the research/planning PRs and now requests direct work on `main`. Follow [AGENTS.md](AGENTS.md) and the [documentation policy](docs/DOCUMENTATION_POLICY.md).
 
 ## Objective and stop condition
 
@@ -100,4 +100,4 @@ The implementation may adjust interface names once, documenting the final comman
 
 ## Stage gates
 
-First review research and handoff in the stacked drafts. Later implementation PRs should provide focused code and recorded command output for the admitted fragment, then witness generation/reporting, then comparative experiments. Include deterministic rerun evidence and limits, not only screenshots or percentages. Keep drafts open and unmerged for the user. If a proof or hypothesis fails, add the smallest counterexample and amend the research conclusion. Stop at the bounded contract before expanding to annotation-sensitive full-draft semantics.
+The research and handoff are consolidated on `main`. Implement in focused, documented commits directly on `main`: admitted-fragment analysis first, then witness generation/reporting, then comparative experiments. Include deterministic rerun evidence and limits, not only screenshots or percentages. Create branches or PRs only if the user later requests them; keep the evidence log and project status current. If a proof or hypothesis fails, add the smallest counterexample and amend the research conclusion. Stop at the bounded contract before expanding to annotation-sensitive full-draft semantics.
