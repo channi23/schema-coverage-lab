@@ -1,0 +1,289 @@
+{
+  "dialect": "https://json-schema.org/draft/2020-12/schema",
+  "status": "Research-derived expectations; not executed during research. Pin an independent validator and run before treating as regression evidence.",
+  "cases": [
+    {
+      "id": "E1-applicability",
+      "schema": {
+        "properties": {
+          "age": {
+            "minimum": 18
+          }
+        }
+      },
+      "tests": [
+        {
+          "instance": {},
+          "valid": true
+        },
+        {
+          "instance": {
+            "age": "young"
+          },
+          "valid": true
+        },
+        {
+          "instance": {
+            "age": 18
+          },
+          "valid": true
+        },
+        {
+          "instance": {
+            "age": 17
+          },
+          "valid": false
+        }
+      ]
+    },
+    {
+      "id": "E2-redundancy",
+      "schema": {
+        "allOf": [
+          {
+            "minimum": 0
+          },
+          {
+            "minimum": 10
+          }
+        ]
+      },
+      "tests": [
+        {
+          "instance": -1,
+          "valid": false
+        },
+        {
+          "instance": 5,
+          "valid": false
+        },
+        {
+          "instance": 10,
+          "valid": true
+        },
+        {
+          "instance": "x",
+          "valid": true
+        }
+      ]
+    },
+    {
+      "id": "E3-oneOf-exactly-one",
+      "schema": {
+        "oneOf": [
+          true,
+          true,
+          true
+        ]
+      },
+      "tests": [
+        {
+          "instance": null,
+          "valid": false
+        }
+      ]
+    },
+    {
+      "id": "E4a-annotation-contributor",
+      "schema": {
+        "allOf": [
+          {
+            "properties": {
+              "a": true
+            }
+          }
+        ],
+        "unevaluatedProperties": false
+      },
+      "tests": [
+        {
+          "instance": {
+            "a": 1
+          },
+          "valid": true
+        }
+      ]
+    },
+    {
+      "id": "E4b-same-validity-different-annotation",
+      "schema": {
+        "allOf": [
+          true
+        ],
+        "unevaluatedProperties": false
+      },
+      "tests": [
+        {
+          "instance": {
+            "a": 1
+          },
+          "valid": false
+        }
+      ]
+    },
+    {
+      "id": "E5-anyOf-all-successful",
+      "schema": {
+        "anyOf": [
+          {
+            "properties": {
+              "a": true
+            }
+          },
+          {
+            "properties": {
+              "b": true
+            }
+          }
+        ],
+        "unevaluatedProperties": false
+      },
+      "tests": [
+        {
+          "instance": {
+            "a": 1,
+            "b": 2
+          },
+          "valid": true
+        }
+      ]
+    },
+    {
+      "id": "E6-failed-branch-no-credit",
+      "schema": {
+        "anyOf": [
+          {
+            "properties": {
+              "a": {
+                "type": "integer"
+              }
+            }
+          },
+          {
+            "properties": {
+              "b": true
+            }
+          }
+        ],
+        "unevaluatedProperties": false
+      },
+      "tests": [
+        {
+          "instance": {
+            "a": "bad",
+            "b": 2
+          },
+          "valid": false
+        }
+      ]
+    },
+    {
+      "id": "E7-contains-count-and-annotations",
+      "schema": {
+        "contains": {
+          "type": "integer"
+        },
+        "minContains": 1,
+        "maxContains": 1,
+        "unevaluatedItems": false
+      },
+      "tests": [
+        {
+          "instance": [
+            1
+          ],
+          "valid": true
+        },
+        {
+          "instance": [
+            1,
+            2
+          ],
+          "valid": false
+        },
+        {
+          "instance": [
+            1,
+            "x"
+          ],
+          "valid": false
+        }
+      ]
+    },
+    {
+      "id": "E8-conditional",
+      "schema": {
+        "if": {
+          "type": "integer"
+        },
+        "then": {
+          "minimum": 0
+        },
+        "else": {
+          "type": "string"
+        }
+      },
+      "tests": [
+        {
+          "instance": 0,
+          "valid": true
+        },
+        {
+          "instance": "x",
+          "valid": true
+        },
+        {
+          "instance": -1,
+          "valid": false
+        },
+        {
+          "instance": null,
+          "valid": false
+        }
+      ]
+    },
+    {
+      "id": "E9-additional-adjacency",
+      "schema": {
+        "allOf": [
+          {
+            "properties": {
+              "a": true
+            }
+          }
+        ],
+        "additionalProperties": false
+      },
+      "tests": [
+        {
+          "instance": {
+            "a": 1
+          },
+          "valid": false
+        }
+      ]
+    },
+    {
+      "id": "E10-ref-siblings",
+      "schema": {
+        "$defs": {
+          "n": {
+            "type": "integer"
+          }
+        },
+        "$ref": "#/$defs/n",
+        "minimum": 5
+      },
+      "tests": [
+        {
+          "instance": 4,
+          "valid": false
+        },
+        {
+          "instance": 5,
+          "valid": true
+        }
+      ]
+    }
+  ]
+}
