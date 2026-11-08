@@ -1,0 +1,2 @@
+PASS: 197314 finite identity assertions across 65808 function/realizability models
+Scope: Boolean/set identities only; no JSON Schema conformance or unbounded feasibility proved.
