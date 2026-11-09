@@ -1,0 +1,35 @@
+{
+  "status": "compiled-and-visually-reviewed",
+  "pages": 15,
+  "author": "Sri Hari Haran Sharma",
+  "email": "hariharansharma588@gmail.com",
+  "document_role": "Author-review research manuscript; not submitted or peer reviewed",
+  "code_and_experiment_commit": "f9b84dc6adf5a085f8014e4619cf0eb02a74cc6d",
+  "study_digest": "fb8958b9681d95228a2c3f0c0886825dc45aafb545ffb80873d8e5e35a666ddc",
+  "experiment_source_set_digest": "747e895d6f0b434387545990e2aa88bf589b20b646852cbea0b7d588c54a31e1",
+  "compiler": {
+    "name": "Tectonic",
+    "version": "0.17.0",
+    "release_archive_sha256": "a3f1cac7c5678f01661a92212f58480ae3b0634115d880dbc59e2953ded45667",
+    "mode": "--only-cached --untrusted --keep-logs",
+    "final_warnings": 0
+  },
+  "figure_generator": "ReportLab 4.4.9; vector PDF/SVG; no new runtime engine dependency",
+  "checks": {
+    "source_regeneration": "main.tex matches portable Markdown converter output",
+    "figure_regeneration": "SVG matched rebuild exactly",
+    "pdf_text_and_page_bounds": "passed",
+    "visual_review": "all15 pages on contact sheet; full pages1,5,9,10,13,15; no clipping or overlaps"
+  },
+  "source_sha256": {
+    "README.md": "c91b6f50376df3b06081e07b3f1e6bae1a98e47601b7150e7eb9597b98187095",
+    "build_figure.py": "4b8b399ea78497269c15b25ed9badde1582e9915ea23f2159ac252ce806e4543",
+    "build_manuscript.py": "8f36fc470b9284f6f62cd82334b3f44f036393360592bab2a73b70c5d474f8ad",
+    "figures/results.pdf": "08b0820123e161f26ca0a2b1a6212f4e2a33e339be71bf4bc1f141b6c269ba73",
+    "figures/results.svg": "cdb9d561fc38bc7681840ef791f034aecdc15aeeb0dc6667ddd62201d3c774f2",
+    "main.tex": "61954c2bf4ccd0ae65d77ec8e78cf67c5dcfa745fb38e6166b7df6d39482f235",
+    "manuscript.md": "5f5c4a8bf112991bc3a0e1a7870d69ea416cd9e81803d84cbc90592e7a57242c",
+    "refs.bib": "83fc2ce676b494b0443dc13f5326c44ee97bfcf76a63520b852b378fe4f0b62d"
+  },
+  "pdf_sha256": "0efd18e1c269c4e6f7404a735027ab847d2709cffd1a8d66836b89ee130c0c04"
+}

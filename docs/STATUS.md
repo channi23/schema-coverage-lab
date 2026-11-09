@@ -16,7 +16,7 @@ Updated 2026-11-09 (Asia/Kolkata).
 
 ## Open work
 
-[Issue #5](https://github.com/channi23/schema-coverage-lab/issues/5) now meets its bounded implementation/testing acceptance conditions: deterministic generation, pair-aware reduction, replay and reproducible offline comparisons are implemented. It can be closed after publication verification. The manuscript is a draft for author review, not a peer-reviewed or submitted publication. No global feasibility solver, full-draft support, practical superiority result or release is claimed.
+[Issue #5](https://github.com/channi23/schema-coverage-lab/issues/5) now meets its bounded implementation/testing acceptance conditions: deterministic generation, pair-aware reduction, replay and reproducible offline comparisons are implemented. It was closed after the implementation/results publication and 243-file Git-blob verification. The manuscript is a draft for author review, not a peer-reviewed or submitted publication. No global feasibility solver, full-draft support, practical superiority result or release is claimed.
 
 Follow the [implementation plan](IMPLEMENTATION_PLAN.md), [roadmap](ROADMAP.md) and [Codex handoff](../CODEX_HANDOFF.md). The original consolidation did not implement the prototype; the subsequent milestone recorded here does.
 
@@ -35,3 +35,8 @@ Work directly on `main`, in focused commits with accompanying documentation and 
 - Raw artifacts, source/environment hashes, per-case reduction evidence and a full budget/metric audit are saved under results/milestone-2 and results/audits.
 
 Full-draft support, global solvers, representative real-schema validation and scholarly novelty remain outside these completed bounded claims. Publication materials and author-review requirements are recorded in docs/PUBLICATION_REVIEW.md.
+
+
+## Publication-style document
+
+The complete 15-page author-review manuscript is [paper/manuscript.pdf](../paper/manuscript.pdf), with matching Markdown/LaTeX, bibliography, vector figure, source builders and build manifest. It cites stable implementation revision f9b84dc6adf5a085f8014e4619cf0eb02a74cc6d and the exact study/source digests. It compiled with Tectonic 0.17.0 using cached resources without warnings, and passed full-page/contact-sheet visual and text/bounds checks. The 20-reference targeted prior-work review does not establish first-ever novelty. No arXiv submission, peer review or acceptance is claimed.

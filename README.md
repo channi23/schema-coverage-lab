@@ -1,5 +1,7 @@
 # Schema Coverage Lab
 
+**Read the complete study:** [15-page manuscript](paper/manuscript.pdf), [editable source and reading guide](paper/README.md), and [publication review](docs/PUBLICATION_REVIEW.md).
+
 Research into MC/DC-inspired semantic test coverage for JSON Schema Draft 2020-12.
 
 The objective is to determine which schema decisions admit meaningful independence obligations, derive a qualified set-theoretic model, and test its practical usefulness without assuming that the hypothesis is true. The proposed metric is **semantic unique-cause independence coverage**. It is distinct from validator source-code MC/DC and carries no certification claim.
@@ -26,7 +28,7 @@ PRs #6–#10 are merged. Stage 2 originally merged into the stage 1 branch and r
 - [Evidence log](docs/EVIDENCE_LOG.md): actions taken, commands, results, source revisions, and limitations.
 - [Codex project instructions](AGENTS.md): persistent workflow and documentation requirements.
 
-Issues #1–#4 are complete. Issue #5 now has bounded acceptance evidence: generation, analysis, reduction/replay and a reproducible study. Full-draft support and scholarly publication claims remain outside that completed scope.
+Issues #1–#4 are complete. Issue #5 is closed with bounded acceptance evidence: generation, analysis, reduction/replay and a reproducible study. Full-draft support and scholarly publication claims remain outside that completed scope.
 
 ## Run the prototype
 
@@ -60,4 +62,4 @@ The finite script is research verification, separate from the implemented bounde
 
 Version 0.2.0 adds deterministic generation, pair-aware greedy/exact-small-pool reduction and replayable reduction bundles. 105 regression tests pass. A frozen 32-subject study produced 2304 equal-budget rows. On 21 subjects with witnessed independence targets, reduction retained all 50 targets while selecting 64 tests from 451 candidates. This does not establish a minimum or superior fault detection: at budget 8, pair-guided mutation coverage was 76.63%, below random 77.59% and boundary-first 91.86% on the declared probe.
 
-Run `python tools/run_experiments.py`, then `python tools/audit_artifacts.py` after a recorded verification run. See [protocol](benchmarks/README.md), [raw summary](results/milestone-2/summary.json), [usage](docs/USAGE.md) and [publication review](docs/PUBLICATION_REVIEW.md). The manuscript/source package will be linked after PDF compilation and author-review checks.
+Run `python tools/run_experiments.py`, then `python tools/audit_artifacts.py` after a recorded verification run. See [protocol](benchmarks/README.md), [raw summary](results/milestone-2/summary.json), [usage](docs/USAGE.md) and [publication review](docs/PUBLICATION_REVIEW.md). The compiled manuscript and editable source package are under paper/. It is an author-review draft, not a submitted or peer-reviewed publication.

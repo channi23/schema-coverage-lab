@@ -19,3 +19,6 @@ Updated 2026-11-09 (Asia/Kolkata). The user authorized merging all completed res
 5. Completed: reproducible tests and equal-budget comparisons, including the negative mutation result and explicit uncertainty.
 
 All five bounded implementation steps have executed evidence in E-0003; full-draft expansion and stronger external validation remain research opportunities. Close issue #5 only when its full implementation/testing acceptance evidence exists. Every increment must update [status](STATUS.md) and [evidence](EVIDENCE_LOG.md) alongside code; follow the [documentation policy](DOCUMENTATION_POLICY.md). Documentation supports traceability but does not itself prove correctness. Milestone 1 results and limitations are recorded in [the evidence manifest](../results/milestone-1/manifest.json).
+
+
+The bounded issue #5 is closed. The [complete manuscript and reading guide](../paper/README.md) explain the implementation, negative findings and remaining scholarly review. Expansion beyond pure-v1 is a separate research direction, not unfinished work within the completed bounded contract.
