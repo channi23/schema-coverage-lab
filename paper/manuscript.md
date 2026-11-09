@@ -8,7 +8,7 @@ Research manuscript for author review, November 2026
 
 JSON Schema validation returns a Boolean result, but a useful test suite must do more than contain accepted and rejected examples. This study operationalizes a strict semantic unique-cause criterion for explicitly selected local decisions in an annotation-free fragment of JSON Schema Draft 2020-12. The criterion belongs to the established unique-cause MC/DC and restricted active-clause family; the contribution is a scoped schema adaptation and an auditable artifact, not the invention of a new Boolean coverage principle. We express child predicates as accepted-instance sets, characterize witnesses by adjacent realizable membership cells, preserve both concrete endpoints, and distinguish finite-pool absence from unknown all-JSON feasibility. Counterexamples explain why coupled predicates, exactly-one overlap, type applicability, local-versus-root influence, and annotation-sensitive contexts defeat naive keyword-bit or union-only interpretations. The implementation separates a custom evaluator from an independently configured validator, then adds deterministic candidate generation and pair-aware suite reduction. A reproducible pilot compares decision-, predicate-, and pair-guided offline selectors with boundary-first and random selection under equal distinct-input budgets. In a 32-subject pilot, pair-aware reduction retained all 50 pool-witnessed obligations while reducing 451 candidates to 64 tests on the 21 target-bearing subjects. At an eight-test budget, pair-guided selection reached all witnessed pair targets, but its macro pool-distinguishable mutation coverage was 76.63 percent, below boundary-first selection at 91.86 percent and random selection at 77.59 percent. The paper reports this negative effectiveness result rather than claiming full-draft coverage, global feasibility, certification, first-ever novelty, or superiority at finding real faults.
 
-## 1. The research question is about evidence, not a percentage
+## 1. Introduction
 
 Suppose a schema accepts an adult age and rejects a minor age. Those two examples establish that the overall decision has both outcomes. They do not establish that every selected constraint can independently change the decision. A schema may contain redundant limits, mutually dependent alternatives, conditions that are irrelevant to the root result, or annotation effects that cannot be reconstructed from isolated truth values. A coverage report that hides these distinctions can display a reassuring percentage while omitting the evidence the percentage is intended to summarize.
 
@@ -20,7 +20,7 @@ These questions separate three claims often conflated in coverage projects. An a
 
 The intended reader can follow the narrative without reading the code. Sections 2 and 3 explain the established background and the semantic boundaries. Sections 4 and 5 give the formal model and algorithms. Sections 6 and 7 describe the executed study and results. The appendices provide worked examples, commands, a project history, and a guide to the repository. A reader implementing or auditing the method should also inspect the source and machine-readable evidence; the prose is not a replacement for those artifacts.
 
-## 2. Established theory narrows the contribution
+## 2. Background and related work
 
 MC/DC is a family of structural testing criteria rather than one software package. NASA's public tutorial distinguishes unique-cause and masking interpretations, discusses coupled condition occurrences, and places structural coverage beside requirements-based testing. It is historical guidance, not a verified account of current certification obligations. Our criterion deliberately omits program entry/exit coverage and makes no claim that a schema interpreter executed a particular source branch. It measures selected semantic decisions. [1]
 
@@ -34,7 +34,7 @@ Existing tools are relevant comparisons, not interchangeable competitors. Hyperj
 
 The defensible contribution is thus an explicit, executable contract for a bounded schema fragment: stable local occurrence identities; realizable paired observations; exact JSON numeric/equality handling; conservative unknown, unsupported, and finite-domain statuses; independent replay; and an exploratory comparison whose raw evidence can be inspected. The literature search was targeted rather than systematic. It does not establish that this exact combination is first, and this manuscript does not make that claim. Its suitability as a publishable research contribution requires the author's scholarly assessment beyond successful execution of an artifact.
 
-## 3. Validation semantics require a fixed observation contract
+## 3. Semantics and scope
 
 Let $\mathcal{J}$ denote finite JSON values under the JSON Schema instance data model. An evaluation contract $E$ fixes the dialect, supported vocabulary and extension policy, registry and base-URI behavior, format policy, and numerical interpretation. At a schema occurrence, a context $\kappa$ additionally fixes the instance location and relevant evaluation or reference scope. Assuming a well-formed schema, resolved resources, supported semantics, and completed evaluation, define its accepted set by
 
@@ -61,7 +61,7 @@ This example limits a particular abstraction, not the power of mathematical sets
 
 The implemented `pure-v1` fragment admits Boolean schemas, empty objects, `type` including type arrays, `const`, `enum`, four inclusive/exclusive numeric bounds, and nested `allOf`, `anyOf`, `oneOf`, and `not`. It recognizes Draft 2020-12 declarations and inert title, description, and comment metadata. It rejects structural object/array/string constraints, conditionals, references, custom vocabularies, formats, `multipleOf`, and annotation-sensitive applicators. Values of array or object type can still appear as type representatives or equality literals; that does not imply support for their structural keywords.
 
-## 4. Independence is an edge between realizable cells
+## 4. Semantic independence coverage
 
 Fix one local decision occurrence, ordered selected condition occurrences $P_1,\ldots,P_n$, and its Boolean function $f$. For each admitted concrete input $x$, let $v(x)$ be the vector of child assertion outcomes and require the selected decision to satisfy $D(x)=f(v(x))$. Immediate logical children form the prototype's decomposition. Atomic sibling constraints affect root validity but do not become extra invented coordinates. A different decomposition changes the metric and its denominator and must be reported.
 
@@ -95,7 +95,7 @@ The report separates `covered`, `feasible_uncovered`, `proven_infeasible`, `unkn
 
 For a complete fixed catalog $O$, the conservative raw score is $|C(T)|/|O|$. A separately labeled feasibility-adjusted score can exclude only obligations proved infeasible in the score's own universe. Unknown obligations remain visible. Zero denominators are N/A rather than 100 percent. Constant and atomic schemas therefore remain useful validity subjects even though they have no invented logical independence obligations.
 
-## 5. The artifact preserves evidence across generation and reduction
+## 5. Algorithms and implementation
 
 The implementation has separate ownership boundaries. Strict JSON handling owns parsing, equality, canonical serialization, and digests. A custom pure-fragment evaluator owns child outcomes and local/root validity. An oracle adapter uses a pinned `Draft202012Validator` with format assertion disabled and remote resource retrieval denied. Observation collection checks each root, each relevant child, and each local applicator against the oracle. The pair engine operates on those agreed observations, and replay reconstructs the report and compares its complete evidence rather than trusting a percentage. [19]
 
@@ -119,7 +119,7 @@ The greedy reducer considers adding a pair's missing endpoints together, ranks n
 
 Admission limits are engineering safeguards, not schema-language semantics. The generator and selector cap candidate counts and eligible pairs; exact enumeration has a smaller pool cap. Parsing, depth, nodes, numeric representation, corpus size, and report size are bounded. Expanded observation evidence must fit the replay loader, so a report that cannot be reloaded is rejected rather than emitted as successful analysis. These limits are visible in configuration and documentation; the public commands distinguish errors from unsupported analysis.
 
-## 6. A pilot separates adequacy from effectiveness
+## 6. Experimental methodology
 
 The experimental protocol freezes each schema and candidate pool before selection. The schema/pool pair, rather than a random seed, is the experimental unit. Authored subjects exercise independent conjunction/disjunction, nested decisions, duplicated predicates, redundant bounds, contradictions, exactly-one overlap, local effects masked at the root, and zero-obligation controls. Twelve official-derived subjects supplement the twenty authored schemas: the first two admitted logical groups from each allOf/anyOf/oneOf/not file, plus the first admitted type/const/enum/Boolean group as four atomic controls. Official conformance cases are developer-authored examples, not a random or industrial sample of deployed schemas. The actual subject inventory and provenance are retained with the executed experiment, and the official-derived cases retain their immutable upstream source revision. [18]
 
@@ -139,7 +139,7 @@ The experiment does not assume that these mutations model real developer faults.
 
 Random repetitions are summarized within each schema before schema-level macro aggregation. Eligible-schema counts accompany each normalized metric; N/A cases are not silently converted to ones. Raw per-schema, per-budget, and per-seed rows remain available. This small pilot uses descriptive summaries and paired differences, not a significance test that pretends seeds are independent schema subjects. The experiment can reveal a negative result: pair coverage can improve while root mutation discrepancy does not. Such a result limits the method's usefulness claim rather than invalidating the witness definition.
 
-## 7. Results must remain tied to the executed artifacts
+## 7. Results
 
 The recorded study completed all 32 subjects and 2304 equal-budget rows. Twenty schemas were authored diagnostic subjects and twelve were official-derived. The generated pools contained 630 per-subject candidate tests in total, with sizes from 16 to 32. No pool reached the declared cap, no pool was truncated, and no numeric representation proposal was rejected. These are counts within this selected study; they do not establish generator completeness or an industrial distribution.
 
@@ -177,7 +177,7 @@ Costs were recorded separately rather than hidden in final suite size. On the si
 
 The manifest records the protocol, schemas, source and artifact hashes, runtime and oracle versions, and exact command `python tools/run_experiments.py`. The complete continuation verification passed 105 regression tests; its outputs are retained under `results/milestone-2/verification/`, leaving milestone-1 evidence intact. Per-case directories retain generated corpora and recipes, oracle-agreed pool reports, mutant schemas and discrepancy sets, reduced suites, and replay results. The aggregate table is a readable view of those artifacts, not a substitute for them. No significance test, real-fault claim, comparator-tool performance claim, global mutant equivalence conclusion, or arXiv publication status follows from these results.
 
-## 8. Threats limit interpretation beyond this fragment
+## 8. Threats to validity
 
 The first construct-validity threat is the chosen decomposition. Immediate logical children are a clear reproducible catalog, but they omit independent obligations for arbitrary atomic sibling constraints. A schema without a logical applicator has zero independence obligations even if its domain restrictions are important. The report exposes that choice; a future leaf-level or root-influence criterion would be a different metric. Runtime short-circuit conventions and masking variants are likewise outside the total semantic relation evaluated here.
 
@@ -191,13 +191,13 @@ External validity is limited by authored synthetic subjects, selected official s
 
 The related-work search is targeted. Existing formalization, generation, schema coverage, and MC/DC reduction substantially overlap the foundations. This paper does not establish first-ever novelty, a new coverage principle, or a new impossibility theorem about modern JSON Schema. Its contribution is the explicit bounded adaptation, auditable engineering contract, and exploratory evidence. Whether that contribution warrants scholarly publication remains for author and peer assessment.
 
-## 9. Conclusions distinguish a sound question from an effective method
+## 9. Conclusions
 
 A semantic independence tool should expose what is missing as carefully as what is covered. Realizability prevents impossible truth-vector credit; paired endpoints prevent one-sided evidence; context qualifications prevent local observations from being promoted into unsupported root or execution claims. These requirements make the resulting percentage less universal but its evidence more inspectable.
 
 The practical research question remains empirical. A useful next extension is not merely a larger percentage denominator; it is an explicit observation model for the added semantics, an independently checked witness mechanism, and a fair evaluation on a broader corpus. The present artifact provides a reproducible place to ask that question while preserving finite-domain limits, negative cases, and prior-work boundaries.
 
-## Appendix A. Worked examples explain the reports
+## Appendix A. Worked examples
 
 Consider `{"allOf":[{"type":"integer"},{"minimum":18}]}` with inputs 18, 17, and `"x"`. Their selected vectors are 11, 10, and 01 respectively. The pair 18/`"x"` witnesses the integer coordinate because minimum holds for both; the pair 18/17 witnesses minimum because both inputs are integers. These three distinct inputs cover both local independence obligations. A different suite containing only vectors 00 and 11 for an abstract conjunction would cover both condition outcomes and both decision outcomes but no strict independence pair.
 
@@ -209,7 +209,7 @@ For `{"allOf":[false,{"anyOf":[{"const":0},{"const":1}]}]}`, the inner decision 
 
 For `{"oneOf":[true,true,true]}`, the root always rejects. Interpreting exactly-one as iterated XOR would instead accept every instance. This small case prevents a plausible but incorrect set transformation. It also illustrates why observing a child as true does not imply that it has decision-flipping influence.
 
-## Appendix B. A reader can reproduce the artifact in stages
+## Appendix B. Reproducibility and artifacts
 
 The repository is `https://github.com/channi23/schema-coverage-lab`. Work was performed directly on `main` after the author explicitly requested consolidation of the initial research PR stack. The repository preserves those issues, PRs, commits, research chapters, and evidence logs rather than deleting completed history. A source/content manifest is preferable to relying on a moving branch name when reproducing an experiment.
 

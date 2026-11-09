@@ -1,21 +1,29 @@
-\documentclass[11pt]{article}
-\usepackage[T1]{fontenc}
-\usepackage[utf8]{inputenc}
-\usepackage[margin=1in]{geometry}
-\usepackage{amsmath,amssymb,booktabs,hyperref,graphicx,listings}
-\hypersetup{colorlinks=true,linkcolor=blue,citecolor=blue,urlcolor=blue,pdftitle={Semantic Independence Coverage for JSON Schema},pdfauthor={Sri Hari Haran Sharma}}
-\lstset{basicstyle=\ttfamily\footnotesize,breaklines=true,breakatwhitespace=false,columns=fullflexible,frame=single,keepspaces=true,showstringspaces=false}
+\documentclass[sigconf,nonacm]{acmart}
+\usepackage{amsmath,booktabs,graphicx,listings}
+\settopmatter{printacmref=false,printccs=false,printfolios=true}
+\acmConference{}{}{}
+\acmBooktitle{}
+\acmYear{2026}
+\copyrightyear{2026}
+\setcopyright{none}
+\hypersetup{hidelinks,pdftitle={Semantic Independence Coverage for JSON Schema: A Bounded Reproducible Study},pdfauthor={Sri Hari Haran Sharma}}
+\lstset{basicstyle=\ttfamily\scriptsize,breaklines=true,breakatwhitespace=false,columns=fullflexible,frame=single,keepspaces=true,showstringspaces=false}
 \setlength{\emergencystretch}{2em}
-\title{Semantic Independence Coverage for JSON Schema:\\A Bounded Reproducible Study}
-\author{Sri Hari Haran Sharma\\\href{mailto:hariharansharma588@gmail.com}{\texttt{hariharansharma588@gmail.com}}}
-\date{November 2026\\\small Research manuscript for author review}
+\renewcommand{\dbltopfraction}{.95}
+\renewcommand{\dblfloatpagefraction}{.7}
+\renewcommand{\textfraction}{.05}
+\title{Semantic Independence Coverage for JSON Schema}
+\subtitle{A Bounded Reproducible Study}
+\author{Sri Hari Haran Sharma}
+\email{hariharansharma588@gmail.com}
+\renewcommand{\shortauthors}{Sharma}
 \begin{document}
-\maketitle
 \begin{abstract}
 JSON Schema validation returns a Boolean result, but a useful test suite must do more than contain accepted and rejected examples. This study operationalizes a strict semantic unique-cause criterion for explicitly selected local decisions in an annotation-free fragment of JSON Schema Draft 2020-12. The criterion belongs to the established unique-cause MC/DC and restricted active-clause family; the contribution is a scoped schema adaptation and an auditable artifact, not the invention of a new Boolean coverage principle. We express child predicates as accepted-instance sets, characterize witnesses by adjacent realizable membership cells, preserve both concrete endpoints, and distinguish finite-pool absence from unknown all-JSON feasibility. Counterexamples explain why coupled predicates, exactly-one overlap, type applicability, local-versus-root influence, and annotation-sensitive contexts defeat naive keyword-bit or union-only interpretations. The implementation separates a custom evaluator from an independently configured validator, then adds deterministic candidate generation and pair-aware suite reduction. A reproducible pilot compares decision-, predicate-, and pair-guided offline selectors with boundary-first and random selection under equal distinct-input budgets. In a 32-subject pilot, pair-aware reduction retained all 50 pool-witnessed obligations while reducing 451 candidates to 64 tests on the 21 target-bearing subjects. At an eight-test budget, pair-guided selection reached all witnessed pair targets, but its macro pool-distinguishable mutation coverage was 76.63 percent, below boundary-first selection at 91.86 percent and random selection at 77.59 percent. The paper reports this negative effectiveness result rather than claiming full-draft coverage, global feasibility, certification, first-ever novelty, or superiority at finding real faults.
 
 \end{abstract}
-\section{The research question is about evidence, not a percentage}
+\maketitle
+\section{Introduction}
 Suppose a schema accepts an adult age and rejects a minor age. Those two examples establish that the overall decision has both outcomes. They do not establish that every selected constraint can independently change the decision. A schema may contain redundant limits, mutually dependent alternatives, conditions that are irrelevant to the root result, or annotation effects that cannot be reconstructed from isolated truth values. A coverage report that hides these distinctions can display a reassuring percentage while omitting the evidence the percentage is intended to summarize.
 
 The project began with two questions: can modified condition/decision coverage inform JSON Schema testing, and can sets replace an overly simple Boolean interpretation? The answer is qualified. Sets provide an established mathematical language for accepted instances; semantic condition outcomes are still Boolean observations of membership in those sets. Independence is not a third kind of truth value or the existence of one exclusive instance. It is evidence about a pair of concrete inputs under a declared decomposition and evaluation contract. The engineering task is to retain that evidence without inventing impossible truth vectors or silently treating unsuccessful search as a proof of impossibility.
@@ -26,7 +34,7 @@ These questions separate three claims often conflated in coverage projects. An a
 
 The intended reader can follow the narrative without reading the code. Sections 2 and 3 explain the established background and the semantic boundaries. Sections 4 and 5 give the formal model and algorithms. Sections 6 and 7 describe the executed study and results. The appendices provide worked examples, commands, a project history, and a guide to the repository. A reader implementing or auditing the method should also inspect the source and machine-readable evidence; the prose is not a replacement for those artifacts.
 
-\section{Established theory narrows the contribution}
+\section{Background and related work}
 MC/DC is a family of structural testing criteria rather than one software package. NASA's public tutorial distinguishes unique-cause and masking interpretations, discusses coupled condition occurrences, and places structural coverage beside requirements-based testing. It is historical guidance, not a verified account of current certification obligations. Our criterion deliberately omits program entry/exit coverage and makes no claim that a schema interpreter executed a particular source branch. It measures selected semantic decisions. \cite{ref1}
 
 Logic coverage literature already formalizes active clauses, Boolean determination, and the relation between the major clause and fixed minor-clause outcomes. Under restricted active-clause coverage, the target clause changes while the other selected clause values remain equal and the predicate changes. This is the same-minor-values principle used here over feasible schema instances. Naming the relation semantic unique-cause coverage describes its application; it does not establish a new Boolean coverage criterion. Condition occurrences also require care: this artifact preserves distinct immediate child occurrences and represents equality between them through realizability, rather than silently merging repeated schema text into one coordinate. \cite{ref3}
@@ -39,11 +47,11 @@ Existing tools are relevant comparisons, not interchangeable competitors. Hyperj
 
 The defensible contribution is thus an explicit, executable contract for a bounded schema fragment: stable local occurrence identities; realizable paired observations; exact JSON numeric/equality handling; conservative unknown, unsupported, and finite-domain statuses; independent replay; and an exploratory comparison whose raw evidence can be inspected. The literature search was targeted rather than systematic. It does not establish that this exact combination is first, and this manuscript does not make that claim. Its suitability as a publishable research contribution requires the author's scholarly assessment beyond successful execution of an artifact.
 
-\section{Validation semantics require a fixed observation contract}
+\section{Semantics and scope}
 Let $\mathcal{J}$ denote finite JSON values under the JSON Schema instance data model. An evaluation contract $E$ fixes the dialect, supported vocabulary and extension policy, registry and base-URI behavior, format policy, and numerical interpretation. At a schema occurrence, a context $\kappa$ additionally fixes the instance location and relevant evaluation or reference scope. Assuming a well-formed schema, resolved resources, supported semantics, and completed evaluation, define its accepted set by
 
 \[
-\mathcal{A}_{E,\kappa}(S)=\{x\in\mathcal{J}:S\text{ validates }x\text{ under }E,\kappa\}.
+\begin{aligned}\mathcal{A}_{E,\kappa}(S)=\{x\in\mathcal{J}:{}&S\text{ validates }x\\&\text{under }E,\kappa\}.\end{aligned}
 \]
 For a fixed root contract the context subscript can be suppressed. This is an extensional projection onto validity, not a complete operational semantics. It does not encode annotations, evaluated property/index locations, error messages, branch visits, or implementation control flow. An invalid schema or unresolved evaluation is not the Boolean schema \texttt{f\allowbreak{}a\allowbreak{}l\allowbreak{}s\allowbreak{}e}; it is an input or evaluation failure. Core and Validation define these semantic categories separately. \cite{ref9,ref10}
 
@@ -63,7 +71,7 @@ This example limits a particular abstraction, not the power of mathematical sets
 
 The implemented \texttt{p\allowbreak{}u\allowbreak{}r\allowbreak{}e\allowbreak{}-\allowbreak{}v\allowbreak{}1} fragment admits Boolean schemas, empty objects, \texttt{t\allowbreak{}y\allowbreak{}p\allowbreak{}e} including type arrays, \texttt{c\allowbreak{}o\allowbreak{}n\allowbreak{}s\allowbreak{}t}, \texttt{e\allowbreak{}n\allowbreak{}u\allowbreak{}m}, four inclusive/exclusive numeric bounds, and nested \texttt{a\allowbreak{}l\allowbreak{}l\allowbreak{}O\allowbreak{}f}, \texttt{a\allowbreak{}n\allowbreak{}y\allowbreak{}O\allowbreak{}f}, \texttt{o\allowbreak{}n\allowbreak{}e\allowbreak{}O\allowbreak{}f}, and \texttt{n\allowbreak{}o\allowbreak{}t}. It recognizes Draft 2020-12 declarations and inert title, description, and comment metadata. It rejects structural object/array/string constraints, conditionals, references, custom vocabularies, formats, \texttt{m\allowbreak{}u\allowbreak{}l\allowbreak{}t\allowbreak{}i\allowbreak{}p\allowbreak{}l\allowbreak{}e\allowbreak{}O\allowbreak{}f}, and annotation-sensitive applicators. Values of array or object type can still appear as type representatives or equality literals; that does not imply support for their structural keywords.
 
-\section{Independence is an edge between realizable cells}
+\section{Semantic independence coverage}
 Fix one local decision occurrence, ordered selected condition occurrences $P_1,\ldots,P_n$, and its Boolean function $f$. For each admitted concrete input $x$, let $v(x)$ be the vector of child assertion outcomes and require the selected decision to satisfy $D(x)=f(v(x))$. Immediate logical children form the prototype's decomposition. Atomic sibling constraints affect root validity but do not become extra invented coordinates. A different decomposition changes the metric and its denominator and must be reported.
 
 For each Boolean vector $b\in\{0,1\}^n$, define the membership cell
@@ -96,7 +104,7 @@ The report separates \texttt{c\allowbreak{}o\allowbreak{}v\allowbreak{}e\allowbr
 
 For a complete fixed catalog $O$, the conservative raw score is $|C(T)|/|O|$. A separately labeled feasibility-adjusted score can exclude only obligations proved infeasible in the score's own universe. Unknown obligations remain visible. Zero denominators are N/A rather than 100 percent. Constant and atomic schemas therefore remain useful validity subjects even though they have no invented logical independence obligations.
 
-\section{The artifact preserves evidence across generation and reduction}
+\section{Algorithms and implementation}
 The implementation has separate ownership boundaries. Strict JSON handling owns parsing, equality, canonical serialization, and digests. A custom pure-fragment evaluator owns child outcomes and local/root validity. An oracle adapter uses a pinned \texttt{D\allowbreak{}r\allowbreak{}a\allowbreak{}f\allowbreak{}t\allowbreak{}2\allowbreak{}0\allowbreak{}2\allowbreak{}0\allowbreak{}1\allowbreak{}2\allowbreak{}V\allowbreak{}a\allowbreak{}l\allowbreak{}i\allowbreak{}d\allowbreak{}a\allowbreak{}t\allowbreak{}o\allowbreak{}r} with format assertion disabled and remote resource retrieval denied. Observation collection checks each root, each relevant child, and each local applicator against the oracle. The pair engine operates on those agreed observations, and replay reconstructs the report and compares its complete evidence rather than trusting a percentage. \cite{ref19}
 
 Numeric input tokens are parsed exactly as decimals or integers, not rounded through binary floating point. Recursive equality distinguishes booleans before numbers. At the stock oracle boundary, integral decimals are converted exactly to integers, while nonintegral decimals remain exact decimals; this accommodates integer classification without replacing the oracle's assertion algorithms. Project canonical JSON sorts object keys and normalizes decimal coefficient/exponent representation without arithmetic-context rounding. It is explicitly a project serialization, not a claim of RFC 8785 compatibility. Experiment manifests additionally hash original source and input bytes.
@@ -108,9 +116,7 @@ The deterministic generator is a transparent heuristic. It collects equality lit
 For finite-pool reduction, let $X$ be the supplied candidates and $E_i$ the eligible pairs for obligation $i$. A transparent binary model selects tests $y_x$ and pair activations $z_p$:
 
 \[
-\min\sum_{x\in X}y_x,\qquad
-z_{\{x,y\}}\le y_x,\quad z_{\{x,y\}}\le y_y,\quad
-\sum_{p\in E_i}z_p\ge1.
+\begin{aligned}&\min\sum_{x\in X}y_x,\\&z_{\{x,y\}}\le y_x,\quad z_{\{x,y\}}\le y_y,\\&\sum_{p\in E_i}z_p\ge1.\end{aligned}
 \]
 The required obligations are those witnessed in this pool; empty pair sets are classified separately. Minimizing pair count is different from minimizing distinct tests because endpoints can be shared. Treating individual endpoints as ordinary set-cover elements is unsound if one endpoint receives full independence credit. These are standard paired-coverage modeling considerations applied to the artifact's explicit observations. \cite{ref2}
 
@@ -118,7 +124,7 @@ The greedy reducer considers adding a pair's missing endpoints together, ranks n
 
 Admission limits are engineering safeguards, not schema-language semantics. The generator and selector cap candidate counts and eligible pairs; exact enumeration has a smaller pool cap. Parsing, depth, nodes, numeric representation, corpus size, and report size are bounded. Expanded observation evidence must fit the replay loader, so a report that cannot be reloaded is rejected rather than emitted as successful analysis. These limits are visible in configuration and documentation; the public commands distinguish errors from unsupported analysis.
 
-\section{A pilot separates adequacy from effectiveness}
+\section{Experimental methodology}
 The experimental protocol freezes each schema and candidate pool before selection. The schema/pool pair, rather than a random seed, is the experimental unit. Authored subjects exercise independent conjunction/disjunction, nested decisions, duplicated predicates, redundant bounds, contradictions, exactly-one overlap, local effects masked at the root, and zero-obligation controls. Twelve official-derived subjects supplement the twenty authored schemas: the first two admitted logical groups from each allOf/anyOf/oneOf/not file, plus the first admitted type/const/enum/Boolean group as four atomic controls. Official conformance cases are developer-authored examples, not a random or industrial sample of deployed schemas. The actual subject inventory and provenance are retained with the executed experiment, and the official-derived cases retain their immutable upstream source revision. \cite{ref18}
 
 RQ1 is checked through custom/oracle agreement, research counterexamples, admitted official cases, and replay. The baseline implementation milestone had 86 regression tests. The completed continuation passed 105 regression tests, while the pinned validation checks passed 295 admitted official tests with 52 explicit exclusions and all 43 original research expectations through the oracle. The continuation verification outputs are preserved separately from the historical baseline. The independent finite mathematics script passed 197314 assertions across 65808 Boolean-function/realizability models. These counts are evidence for their named code/input revisions, not a proof of full-draft conformance or universal correctness.
@@ -137,7 +143,7 @@ The experiment does not assume that these mutations model real developer faults.
 
 Random repetitions are summarized within each schema before schema-level macro aggregation. Eligible-schema counts accompany each normalized metric; N/A cases are not silently converted to ones. Raw per-schema, per-budget, and per-seed rows remain available. This small pilot uses descriptive summaries and paired differences, not a significance test that pretends seeds are independent schema subjects. The experiment can reveal a negative result: pair coverage can improve while root mutation discrepancy does not. Such a result limits the method's usefulness claim rather than invalidating the witness definition.
 
-\section{Results must remain tied to the executed artifacts}
+\section{Results}
 The recorded study completed all 32 subjects and 2304 equal-budget rows. Twenty schemas were authored diagnostic subjects and twelve were official-derived. The generated pools contained 630 per-subject candidate tests in total, with sizes from 16 to 32. No pool reached the declared cap, no pool was truncated, and no numeric representation proposal was rejected. These are counts within this selected study; they do not establish generator completeness or an industrial distribution.
 
 The catalog contained 69 local condition obligations. Fifty had concrete witnesses in their respective pools, across 21 subjects. Nineteen lacked a pair in the declared pool. Four atomic controls had no catalogued logical obligations, and seven additional logical subjects had no witnessed independence target. Keeping these cases visible prevents constant, contradictory, or coupled decisions from disappearing into a misleading 100-percent aggregate. The finite-pool status says nothing by itself about feasibility outside the pool.
@@ -146,7 +152,7 @@ For the 21 subjects with witnessed targets, greedy pair-preserving reduction ret
 
 Table 1 reports schema-macro means at equal budgets. Independence coverage uses the 21 subjects with a nonzero pool-witnessed independence denominator. Mutation coverage uses the 31 subjects with at least one pool-distinguishable mutant. These are different eligible sets, so the two columns should not be interpreted as a subject-by-subject correlation. Random scores are averaged over twenty seeds within each schema before macro aggregation. Percentages are rounded half-up from the recorded decimal summaries only for display; raw rational numerators and denominators are preserved.
 
-\begin{table}[htbp]
+\begin{table*}[t]
 \centering\small
 \caption{Equal-budget schema-macro means (percent). Independence uses 21 target-bearing schemas; pool-distinguishable mutant coverage uses 31 eligible schemas. Random means average seeds within schema first.}
 \begin{tabular}{rlrr}
@@ -170,12 +176,12 @@ Table 1 reports schema-macro means at equal budgets. Independence coverage uses 
 8 & Random mean & 69.44 & 77.59 \\
 \bottomrule
 \end{tabular}
-\end{table}
+\end{table*}
 \IfFileExists{figures/results.pdf}{
-\begin{figure}[htbp]
+\begin{figure*}[t]
 \centering\includegraphics[width=\textwidth]{figures/results.pdf}
 \caption{Coverage and root mutation outcomes are distinct. Values are descriptive schema-macro means under the frozen-pool protocol; see Table 1 for eligible denominators.}
-\end{figure}
+\end{figure*}
 }{}
 Pair-guided selection achieved 56.98, 99.05, and 100.00 percent mean independence coverage at budgets two, four, and eight. Random selection achieved 22.26, 44.88, and 69.44 percent. As expected, an offline selector designed to complete pairs scores well on its own objective. At budget four it covered every witnessed target on 20 of 21 eligible subjects; the remaining authored nested-oneOf subject covered four of five targets. Its unconstrained reduction nevertheless ended with four tests covering all five after deletion. The contrast illustrates the myopia of the budget-constrained greedy construction, not an exact-minimum claim.
 
@@ -187,7 +193,7 @@ Costs were recorded separately rather than hidden in final suite size. On the si
 
 The manifest records the protocol, schemas, source and artifact hashes, runtime and oracle versions, and exact command \texttt{p\allowbreak{}y\allowbreak{}t\allowbreak{}h\allowbreak{}o\allowbreak{}n\allowbreak{} \allowbreak{}t\allowbreak{}o\allowbreak{}o\allowbreak{}l\allowbreak{}s\allowbreak{}/\allowbreak{}r\allowbreak{}u\allowbreak{}n\allowbreak{}\_\allowbreak{}e\allowbreak{}x\allowbreak{}p\allowbreak{}e\allowbreak{}r\allowbreak{}i\allowbreak{}m\allowbreak{}e\allowbreak{}n\allowbreak{}t\allowbreak{}s\allowbreak{}.\allowbreak{}p\allowbreak{}y}. The complete continuation verification passed 105 regression tests; its outputs are retained under \texttt{r\allowbreak{}e\allowbreak{}s\allowbreak{}u\allowbreak{}l\allowbreak{}t\allowbreak{}s\allowbreak{}/\allowbreak{}m\allowbreak{}i\allowbreak{}l\allowbreak{}e\allowbreak{}s\allowbreak{}t\allowbreak{}o\allowbreak{}n\allowbreak{}e\allowbreak{}-\allowbreak{}2\allowbreak{}/\allowbreak{}v\allowbreak{}e\allowbreak{}r\allowbreak{}i\allowbreak{}f\allowbreak{}i\allowbreak{}c\allowbreak{}a\allowbreak{}t\allowbreak{}i\allowbreak{}o\allowbreak{}n\allowbreak{}/}, leaving milestone-1 evidence intact. Per-case directories retain generated corpora and recipes, oracle-agreed pool reports, mutant schemas and discrepancy sets, reduced suites, and replay results. The aggregate table is a readable view of those artifacts, not a substitute for them. No significance test, real-fault claim, comparator-tool performance claim, global mutant equivalence conclusion, or arXiv publication status follows from these results.
 
-\section{Threats limit interpretation beyond this fragment}
+\section{Threats to validity}
 The first construct-validity threat is the chosen decomposition. Immediate logical children are a clear reproducible catalog, but they omit independent obligations for arbitrary atomic sibling constraints. A schema without a logical applicator has zero independence obligations even if its domain restrictions are important. The report exposes that choice; a future leaf-level or root-influence criterion would be a different metric. Runtime short-circuit conventions and masking variants are likewise outside the total semantic relation evaluated here.
 
 The generator favors the exact families admitted by the fragment, especially numeric boundaries and equality literals. Its pool is neither exhaustive over JSON nor sampled from a universal JSON distribution. Truncation can omit a witness, and admitted numeric/depth limits constrain possible representations. A complete classical witness solver could potentially populate cells more systematically, but the artifact does not implement or claim such a solver. The distinction between finite absence and global infeasibility is therefore central, not a minor disclaimer. \cite{ref6}
@@ -200,13 +206,13 @@ External validity is limited by authored synthetic subjects, selected official s
 
 The related-work search is targeted. Existing formalization, generation, schema coverage, and MC/DC reduction substantially overlap the foundations. This paper does not establish first-ever novelty, a new coverage principle, or a new impossibility theorem about modern JSON Schema. Its contribution is the explicit bounded adaptation, auditable engineering contract, and exploratory evidence. Whether that contribution warrants scholarly publication remains for author and peer assessment.
 
-\section{Conclusions distinguish a sound question from an effective method}
+\section{Conclusions}
 A semantic independence tool should expose what is missing as carefully as what is covered. Realizability prevents impossible truth-vector credit; paired endpoints prevent one-sided evidence; context qualifications prevent local observations from being promoted into unsupported root or execution claims. These requirements make the resulting percentage less universal but its evidence more inspectable.
 
 The practical research question remains empirical. A useful next extension is not merely a larger percentage denominator; it is an explicit observation model for the added semantics, an independently checked witness mechanism, and a fair evaluation on a broader corpus. The present artifact provides a reproducible place to ask that question while preserving finite-domain limits, negative cases, and prior-work boundaries.
 
 \appendix
-\section{Worked examples explain the reports}
+\section{Worked examples}
 Consider \texttt{\{\allowbreak{}"\allowbreak{}a\allowbreak{}l\allowbreak{}l\allowbreak{}O\allowbreak{}f\allowbreak{}"\allowbreak{}:\allowbreak{}[\allowbreak{}\{\allowbreak{}"\allowbreak{}t\allowbreak{}y\allowbreak{}p\allowbreak{}e\allowbreak{}"\allowbreak{}:\allowbreak{}"\allowbreak{}i\allowbreak{}n\allowbreak{}t\allowbreak{}e\allowbreak{}g\allowbreak{}e\allowbreak{}r\allowbreak{}"\allowbreak{}\}\allowbreak{},\allowbreak{}\{\allowbreak{}"\allowbreak{}m\allowbreak{}i\allowbreak{}n\allowbreak{}i\allowbreak{}m\allowbreak{}u\allowbreak{}m\allowbreak{}"\allowbreak{}:\allowbreak{}1\allowbreak{}8\allowbreak{}\}\allowbreak{}]\allowbreak{}\}} with inputs 18, 17, and \texttt{"\allowbreak{}x\allowbreak{}"}. Their selected vectors are 11, 10, and 01 respectively. The pair 18/\texttt{"\allowbreak{}x\allowbreak{}"} witnesses the integer coordinate because minimum holds for both; the pair 18/17 witnesses minimum because both inputs are integers. These three distinct inputs cover both local independence obligations. A different suite containing only vectors 00 and 11 for an abstract conjunction would cover both condition outcomes and both decision outcomes but no strict independence pair.
 
 For \texttt{\{\allowbreak{}"\allowbreak{}a\allowbreak{}n\allowbreak{}y\allowbreak{}O\allowbreak{}f\allowbreak{}"\allowbreak{}:\allowbreak{}[\allowbreak{}\{\allowbreak{}"\allowbreak{}t\allowbreak{}y\allowbreak{}p\allowbreak{}e\allowbreak{}"\allowbreak{}:\allowbreak{}"\allowbreak{}i\allowbreak{}n\allowbreak{}t\allowbreak{}e\allowbreak{}g\allowbreak{}e\allowbreak{}r\allowbreak{}"\allowbreak{}\}\allowbreak{},\allowbreak{}\{\allowbreak{}"\allowbreak{}t\allowbreak{}y\allowbreak{}p\allowbreak{}e\allowbreak{}"\allowbreak{}:\allowbreak{}"\allowbreak{}i\allowbreak{}n\allowbreak{}t\allowbreak{}e\allowbreak{}g\allowbreak{}e\allowbreak{}r\allowbreak{}"\allowbreak{}\}\allowbreak{}]\allowbreak{}\}}, an integer and a string produce only 11 and 00. Both predicates change together, so neither child occurrence has a strict unique-cause pair. Deduplicating the two occurrences would change the catalog and denominator, not solve the original coverage problem. The tool reports the chosen catalog rather than silently rewriting the schema.
@@ -217,7 +223,7 @@ For \texttt{\{\allowbreak{}"\allowbreak{}a\allowbreak{}l\allowbreak{}l\allowbrea
 
 For \texttt{\{\allowbreak{}"\allowbreak{}o\allowbreak{}n\allowbreak{}e\allowbreak{}O\allowbreak{}f\allowbreak{}"\allowbreak{}:\allowbreak{}[\allowbreak{}t\allowbreak{}r\allowbreak{}u\allowbreak{}e\allowbreak{},\allowbreak{}t\allowbreak{}r\allowbreak{}u\allowbreak{}e\allowbreak{},\allowbreak{}t\allowbreak{}r\allowbreak{}u\allowbreak{}e\allowbreak{}]\allowbreak{}\}}, the root always rejects. Interpreting exactly-one as iterated XOR would instead accept every instance. This small case prevents a plausible but incorrect set transformation. It also illustrates why observing a child as true does not imply that it has decision-flipping influence.
 
-\section{A reader can reproduce the artifact in stages}
+\section{Reproducibility and artifacts}
 The repository is \texttt{h\allowbreak{}t\allowbreak{}t\allowbreak{}p\allowbreak{}s\allowbreak{}:\allowbreak{}/\allowbreak{}/\allowbreak{}g\allowbreak{}i\allowbreak{}t\allowbreak{}h\allowbreak{}u\allowbreak{}b\allowbreak{}.\allowbreak{}c\allowbreak{}o\allowbreak{}m\allowbreak{}/\allowbreak{}c\allowbreak{}h\allowbreak{}a\allowbreak{}n\allowbreak{}n\allowbreak{}i\allowbreak{}2\allowbreak{}3\allowbreak{}/\allowbreak{}s\allowbreak{}c\allowbreak{}h\allowbreak{}e\allowbreak{}m\allowbreak{}a\allowbreak{}-\allowbreak{}c\allowbreak{}o\allowbreak{}v\allowbreak{}e\allowbreak{}r\allowbreak{}a\allowbreak{}g\allowbreak{}e\allowbreak{}-\allowbreak{}l\allowbreak{}a\allowbreak{}b}. Work was performed directly on \texttt{m\allowbreak{}a\allowbreak{}i\allowbreak{}n} after the author explicitly requested consolidation of the initial research PR stack. The repository preserves those issues, PRs, commits, research chapters, and evidence logs rather than deleting completed history. A source/content manifest is preferable to relying on a moving branch name when reproducing an experiment.
 
 Read this manuscript first for the argument, then \texttt{d\allowbreak{}o\allowbreak{}c\allowbreak{}s\allowbreak{}/\allowbreak{}U\allowbreak{}S\allowbreak{}A\allowbreak{}G\allowbreak{}E\allowbreak{}.\allowbreak{}m\allowbreak{}d} for commands, \texttt{d\allowbreak{}o\allowbreak{}c\allowbreak{}s\allowbreak{}/\allowbreak{}A\allowbreak{}R\allowbreak{}C\allowbreak{}H\allowbreak{}I\allowbreak{}T\allowbreak{}E\allowbreak{}C\allowbreak{}T\allowbreak{}U\allowbreak{}R\allowbreak{}E\allowbreak{}.\allowbreak{}m\allowbreak{}d} for implementation ownership, \texttt{d\allowbreak{}o\allowbreak{}c\allowbreak{}s\allowbreak{}/\allowbreak{}S\allowbreak{}T\allowbreak{}A\allowbreak{}T\allowbreak{}U\allowbreak{}S\allowbreak{}.\allowbreak{}m\allowbreak{}d} for current completion, and \texttt{d\allowbreak{}o\allowbreak{}c\allowbreak{}s\allowbreak{}/\allowbreak{}E\allowbreak{}V\allowbreak{}I\allowbreak{}D\allowbreak{}E\allowbreak{}N\allowbreak{}C\allowbreak{}E\allowbreak{}\_\allowbreak{}L\allowbreak{}O\allowbreak{}G\allowbreak{}.\allowbreak{}m\allowbreak{}d} for the chronology. The detailed research chapters under \texttt{d\allowbreak{}o\allowbreak{}c\allowbreak{}s\allowbreak{}/\allowbreak{}r\allowbreak{}e\allowbreak{}s\allowbreak{}e\allowbreak{}a\allowbreak{}r\allowbreak{}c\allowbreak{}h\allowbreak{}/} preserve definitions, counterexamples, primary sources, and dated limitations. \texttt{C\allowbreak{}O\allowbreak{}D\allowbreak{}E\allowbreak{}X\allowbreak{}\_\allowbreak{}H\allowbreak{}A\allowbreak{}N\allowbreak{}D\allowbreak{}O\allowbreak{}F\allowbreak{}F\allowbreak{}.\allowbreak{}m\allowbreak{}d} is the engineering contract that guided the implementation. The original fixture catalogs are project-authored examples; the vendored official subset retains its upstream MIT license and immutable source commit.

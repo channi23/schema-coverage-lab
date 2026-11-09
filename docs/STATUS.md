@@ -39,4 +39,7 @@ Full-draft support, global solvers, representative real-schema validation and sc
 
 ## Publication-style document
 
-The complete 15-page author-review manuscript is [paper/manuscript.pdf](../paper/manuscript.pdf), with matching Markdown/LaTeX, bibliography, vector figure, source builders and build manifest. It cites stable implementation revision f9b84dc6adf5a085f8014e4619cf0eb02a74cc6d and the exact study/source digests. It compiled with Tectonic 0.17.0 using cached resources without warnings, and passed full-page/contact-sheet visual and text/bounds checks. The 20-reference targeted prior-work review does not establish first-ever novelty. No arXiv submission, peer review or acceptance is claimed.
+The complete 9-page author-review manuscript is [paper/manuscript.pdf](../paper/manuscript.pdf), with matching Markdown/LaTeX, bibliography, vector figure, source builders and build manifest. It cites stable implementation revision f9b84dc6adf5a085f8014e4619cf0eb02a74cc6d and the exact study/source digests. It uses the user-reference-matched ACM-style two-column template, compiled with Tectonic 0.17.0. Full-page/contact-sheet and text/bounds checks passed; nonfatal font-selection and underfull diagnostics remain, with no clipping or overfull boxes. The 20-reference targeted prior-work review does not establish first-ever novelty. No arXiv submission, peer review or acceptance is claimed.
+
+
+Formatting update 2026-11-10: revised to nine pages in the ACM-style two-column layout of the supplied reference. Scientific prose, data and results are unchanged apart from shorter academic section labels and mathematical line breaks. See E-0005 for style and preservation checks.

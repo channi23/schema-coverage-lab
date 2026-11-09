@@ -1,6 +1,6 @@
 # Schema Coverage Lab
 
-**Read the complete study:** [15-page manuscript](paper/manuscript.pdf), [editable source and reading guide](paper/README.md), and [publication review](docs/PUBLICATION_REVIEW.md).
+**Read the complete study:** [9-page manuscript](paper/manuscript.pdf), [editable source and reading guide](paper/README.md), and [publication review](docs/PUBLICATION_REVIEW.md).
 
 Research into MC/DC-inspired semantic test coverage for JSON Schema Draft 2020-12.
 

@@ -24,19 +24,26 @@ def escape(s):
              '{':'\\{','}':'\\}','~':'\\textasciitilde{}','^':'\\textasciicircum{}'}
     return ''.join(mapping.get(c,c) for c in s)
 
-preamble=r'''\documentclass[11pt]{article}
-\usepackage[T1]{fontenc}
-\usepackage[utf8]{inputenc}
-\usepackage[margin=1in]{geometry}
-\usepackage{amsmath,amssymb,booktabs,hyperref,graphicx,listings}
-\hypersetup{colorlinks=true,linkcolor=blue,citecolor=blue,urlcolor=blue,pdftitle={Semantic Independence Coverage for JSON Schema},pdfauthor={Sri Hari Haran Sharma}}
-\lstset{basicstyle=\ttfamily\footnotesize,breaklines=true,breakatwhitespace=false,columns=fullflexible,frame=single,keepspaces=true,showstringspaces=false}
+preamble=r'''\documentclass[sigconf,nonacm]{acmart}
+\usepackage{amsmath,booktabs,graphicx,listings}
+\settopmatter{printacmref=false,printccs=false,printfolios=true}
+\acmConference{}{}{}
+\acmBooktitle{}
+\acmYear{2026}
+\copyrightyear{2026}
+\setcopyright{none}
+\hypersetup{hidelinks,pdftitle={Semantic Independence Coverage for JSON Schema: A Bounded Reproducible Study},pdfauthor={Sri Hari Haran Sharma}}
+\lstset{basicstyle=\ttfamily\scriptsize,breaklines=true,breakatwhitespace=false,columns=fullflexible,frame=single,keepspaces=true,showstringspaces=false}
 \setlength{\emergencystretch}{2em}
-\title{Semantic Independence Coverage for JSON Schema:\\A Bounded Reproducible Study}
-\author{Sri Hari Haran Sharma\\\href{mailto:hariharansharma588@gmail.com}{\texttt{hariharansharma588@gmail.com}}}
-\date{November 2026\\\small Research manuscript for author review}
+\renewcommand{\dbltopfraction}{.95}
+\renewcommand{\dblfloatpagefraction}{.7}
+\renewcommand{\textfraction}{.05}
+\title{Semantic Independence Coverage for JSON Schema}
+\subtitle{A Bounded Reproducible Study}
+\author{Sri Hari Haran Sharma}
+\email{hariharansharma588@gmail.com}
+\renewcommand{\shortauthors}{Sharma}
 \begin{document}
-\maketitle
 '''
 out=[preamble]
 lines=source.splitlines();i=0;paragraph=[];started=False;abstract=False;appendix=False
@@ -53,7 +60,7 @@ while i<len(lines):
     if line.startswith('## '):
         flush()
         if abstract:
-            out.append('\\end{abstract}\n');abstract=False
+            out.append('\\end{abstract}\n\\maketitle\n');abstract=False
         heading=line[3:]
         if heading=='References':
             out.append('\\begin{thebibliography}{99}\n\\small\n\\raggedright\n')
@@ -79,7 +86,7 @@ while i<len(lines):
         flush();table=[]
         while i<len(lines) and lines[i].startswith('|'):
             table.append([x.strip() for x in lines[i].strip('|').split('|')]);i+=1
-        out.append(r'''\begin{table}[htbp]
+        out.append(r'''\begin{table*}[t]
 \centering\small
 \caption{Equal-budget schema-macro means (percent). Independence uses 21 target-bearing schemas; pool-distinguishable mutant coverage uses 31 eligible schemas. Random means average seeds within schema first.}
 \begin{tabular}{rlrr}
@@ -90,12 +97,12 @@ while i<len(lines):
         for row in table[2:]:
             row=[x.replace('Random (within-schema mean)','Random mean') for x in row]
             out.append(' & '.join(text_latex(x) for x in row)+' \\\\\n')
-        out.append('\\bottomrule\n\\end{tabular}\n\\end{table}\n')
+        out.append('\\bottomrule\n\\end{tabular}\n\\end{table*}\n')
         out.append(r'''\IfFileExists{figures/results.pdf}{
-\begin{figure}[htbp]
+\begin{figure*}[t]
 \centering\includegraphics[width=\textwidth]{figures/results.pdf}
 \caption{Coverage and root mutation outcomes are distinct. Values are descriptive schema-macro means under the frozen-pool protocol; see Table 1 for eligible denominators.}
-\end{figure}
+\end{figure*}
 }{}
 ''')
         continue
@@ -110,6 +117,12 @@ tex=tex.replace('W_i=\\{\\{x,y\\}:v_i(x)\\ne v_i(y),\\ D(x)\\ne D(y),\n\\ v_j(x)
 W_i=\\{\\{x,y\\}:&\\ v_i(x)\\ne v_i(y),\\ D(x)\\ne D(y),\\\\
 &v_j(x)=v_j(y)\\text{ for every }j\\ne i\\}.
 \\end{aligned}''')
+
+tex=tex.replace(r'\mathcal{A}_{E,\kappa}(S)=\{x\in\mathcal{J}:S\text{ validates }x\text{ under }E,\kappa\}.',
+ r'\begin{aligned}\mathcal{A}_{E,\kappa}(S)=\{x\in\mathcal{J}:{}&S\text{ validates }x\\&\text{under }E,\kappa\}.\end{aligned}')
+tex=tex.replace(r'\min\sum_{x\in X}y_x,\qquad'+'\n'+r'z_{\{x,y\}}\le y_x,\quad z_{\{x,y\}}\le y_y,\quad'+'\n'+r'\sum_{p\in E_i}z_p\ge1.',
+ r'\begin{aligned}&\min\sum_{x\in X}y_x,\\&z_{\{x,y\}}\le y_x,\quad z_{\{x,y\}}\le y_y,\\&\sum_{p\in E_i}z_p\ge1.\end{aligned}')
+
 (dest/'main.tex').write_text(tex)
 
 
