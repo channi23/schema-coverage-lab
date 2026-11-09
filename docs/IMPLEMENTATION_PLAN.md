@@ -1,5 +1,7 @@
 # Later implementation and reproducible testing
 
+Continuation complete, 2026-11-09: increments A–D meet the bounded contract. 105 regressions pass; deterministic generation, pair-aware reduction/replay, a 32-subject / 2304-row frozen offline study and raw-evidence audit are complete. See results/milestone-2, docs/STATUS.md and E-0003. The milestone 1 update below is retained as historical context.
+
 Milestone 1 update, 2026-11-09: increments A and B are implemented for pure-v1, with 86 regression tests, 295 admitted official tests and 43 independent-oracle research expectations passing. Increment C is limited to supplied-corpus finite-domain analysis; generation and suite reduction remain. Increment D is unstarted. See [current status](STATUS.md), [usage](USAGE.md) and [evidence](EVIDENCE_LOG.md).
 
 Issue #5. This stage is a planning deliverable. The original planning delivery contained no implementation. The current corpus-analysis/replay milestone is recorded above; the broader generator and experiments remain open. The research and handoff are now consolidated on `main`. Follow [CODEX_HANDOFF.md](../CODEX_HANDOFF.md) and implement directly on `main` under the [documentation policy](DOCUMENTATION_POLICY.md).

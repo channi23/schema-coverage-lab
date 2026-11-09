@@ -1,6 +1,6 @@
 # Running the bounded prototype
 
-Milestone 1, 2026-11-09. The implemented tool analyzes a supplied finite corpus and independently replays strict semantic independence pairs. It does not generate tests or minimize a suite. Run commands from the repository root.
+Version 0.2.0, 2026-11-09. The tool generates a bounded heuristic corpus, analyzes semantic independence, reduces finite-pool suites and independently replays evidence. It is not a complete global solver. Run commands from the repository root.
 
 ## Install and verify
 
@@ -13,7 +13,7 @@ python tools/verify.py
 
 Tested with Python 3.14.2 on macOS arm64. The project declares Python >=3.11, but other Python/platform combinations have not been tested. The lock fixes all ten direct/transitive runtime and test package versions and includes release-artifact hashes for other platforms. Dependency installation needs package access; analysis, replay and vendored tests require no network retrieval. The module runs from the repository; package publishing and an installed console command are outside this milestone.
 
-`tools/verify.py` runs pytest, the finite mathematics check, both research catalogs, the admitted official subset and an example analysis/replay. It writes actual outputs and an environment/source/artifact manifest to `results/milestone-1/`. A subsequent run replaces those artifacts; commit a new evidence entry when recording a new experiment.
+`tools/verify.py` runs pytest, the finite mathematics check, both research catalogs, the admitted official subset and an example analysis/replay. By default it writes fresh outputs to `results/current/verification/`, preserving committed milestone evidence. Use `--output`, `--evidence-id` and `--base-commit` to name a recorded run. Commit a new evidence entry when recording a new experiment.
 
 ## Analyze and replay
 
@@ -42,7 +42,7 @@ Corpus format:
 
 IDs must be unique nonempty strings. `suite_ids` is an optional unique subset; omitted means select every candidate. A pair found among candidates but absent from the selected suite is `feasible_uncovered`. Input order does not affect the report; IDs determine deterministic ordering and tie-breaking.
 
-Default `--domain all_json` treats missing pairs as `unknown`. This is intentionally incomplete for the all-JSON universe. Use `--domain candidate_pool` only when scoring the exact supplied finite pool: exhaustive pair absence is then `proven_infeasible` **in that pool**. It is not a global proof. No symbolic global infeasibility solver is provided.
+Default `--domain all_json` treats missing pairs as `unknown`. This is intentionally incomplete for the all-JSON universe. Use `--domain candidate_pool` only when scoring the exact supplied finite pool: exhaustive pair absence is then `proven_infeasible` **in that pool**. It is not a global proof. No symbolic global infeasibility solver is provided. Generated corpora use the same finite-pool semantics; recipe metadata is retained in the corpus artifact, while the coverage report treats the embedded instances as supplied evidence rather than certifying their generator provenance.
 
 The example has two covered obligations: integer vs noninteger while minimum holds, and minimum vs below-minimum while integer holds. Both endpoints are included and replayed. These are local logical obligations, not source-code execution coverage.
 
@@ -77,3 +77,31 @@ python -m schema_coverage_lab check-official
 ```
 
 The oracle checks all original research examples, including deferred features, while the analyzer must explicitly reject unsupported examples. The official-subset command verifies pinned file hashes and reports each excluded group. Passing that subset is not a full-draft conformance claim.
+
+
+## Generate, reduce and replay
+
+```sh
+python -m schema_coverage_lab generate --schema examples/conjunction.schema.json --max-candidates 48 --output results/generated-corpus.json
+python -m schema_coverage_lab analyze --schema examples/conjunction.schema.json --corpus results/generated-corpus.json --domain candidate_pool --output results/generated-report.json
+python -m schema_coverage_lab reduce --report results/generated-report.json --criterion independence --method greedy --output results/reduced.json
+python -m schema_coverage_lab replay --report results/reduced.json
+```
+
+Generation is deterministic, capped at 128 candidates, and explicitly incomplete over all JSON. The corpus includes reasons, prioritization, cap/truncation and rejected-representation records. Numeric recipes use exact literal/boundary offsets and interval representatives; defaults cover primitive types and fresh nonliteral values.
+
+Reduction takes a supported oracle-replayed report and considers the whole supplied candidate pool. It preserves all features witnessed in that pool under the selected criterion, even if an earlier selected suite omitted some. `decision` preserves local outcome features, `predicate` condition outcomes, and `independence` eligible pairs. The output bundle embeds source and reduced reports plus metadata; replay recomputes both analysis and selection. A zero target can legitimately reduce to zero tests for that criterion, with N/A coverage rather than global adequacy.
+
+Greedy pair-aware reduction has no minimum-size guarantee. `--method exact` enumerates at most 65536 subsets and is restricted to 16 candidates. Selection is capped at 128 candidates and 200000 eligible pairs. All generated/reduced artifacts must fit strict loader limits.
+
+## Reproduce the bounded study
+
+```sh
+python tools/run_experiments.py
+python tools/verify.py --output results/milestone-2/verification --evidence-id E-0003 --base-commit c48fbe4ec1aa49f0b4bd2b8eb0797944981034fa
+python tools/audit_artifacts.py
+```
+
+The frozen protocol is [benchmarks/README.md](../benchmarks/README.md); inputs, seeds and budgets are in `benchmarks/study.json`. Raw outcomes and case evidence are under `results/milestone-2/`. The audit checks source/artifact hashes, all 2304 distinct-budget rows and their metric numerators, and all 32 reduction replays. New runs replace continuation artifacts; preserve a revision or copy before changing experimental inputs.
+
+These are offline final-suite comparisons after full-pool observations. The study records preprocessing costs separately. It does not show end-to-end online generation superiority or performance on representative deployed schemas. Version-0.1.0 historical reports require their original source revision for strict replay; no cross-version compatibility is promised.

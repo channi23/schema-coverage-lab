@@ -1,0 +1,8 @@
+{
+  "status": "passed",
+  "source_and_artifact_hashes": "matched",
+  "subjects": 32,
+  "equal_budget_rows_audited": 2304,
+  "reductions_replayed": 32,
+  "limits": "Consistency audit of recorded finite-pool evidence; not a new global correctness proof"
+}

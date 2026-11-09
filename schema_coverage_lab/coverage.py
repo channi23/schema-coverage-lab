@@ -3,7 +3,7 @@
 import platform
 
 from . import __version__
-from .jsonio import LIMITS, InputError, check_value, digest, dumps, equal
+from .jsonio import LIMITS, InputError, admit_output, check_value, digest, equal
 from .oracle import DIALECT, Oracle, check_schema, environment
 from .semantics import catalog, evaluate, support_issues
 
@@ -13,10 +13,7 @@ STATUSES = ("covered", "feasible_uncovered", "proven_infeasible", "unknown", "un
 def _report(value):
     # Observations expand a corpus. Do not emit a report the strict loader
     # cannot subsequently read for replay, even when each input was admissible.
-    check_value(value)
-    if len(dumps(value).encode("ascii")) + 1 > LIMITS["input_bytes"]:
-        raise InputError("Report exceeds replayable input byte limit")
-    return value
+    return admit_output(value)
 
 
 def _pair(observations, index, allowed):

@@ -128,6 +128,14 @@ def digest(value):
     return hashlib.sha256(dumps(value).encode("ascii")).hexdigest()
 
 
+def admit_output(value):
+    """Do not emit JSON artifacts the strict loader cannot subsequently read."""
+    check_value(value)
+    if len(dumps(value).encode("ascii")) + 1 > LIMITS["input_bytes"]:
+        raise InputError("Output exceeds replayable input byte limit")
+    return value
+
+
 def equal(a, b):
     if isinstance(a, bool) or isinstance(b, bool):
         return type(a) is type(b) and a == b

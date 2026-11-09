@@ -42,3 +42,12 @@ Draft semantics are cited in [the research chapters](research/02-json-schema.md)
 The [vendored manifest](../vendor/json-schema-test-suite/manifest.json) pins the official suite to `245a45abc90190c0bff04d97e6d2b541b4bb9f12`; the upstream MIT license is retained. Twelve keyword files were selected. Within those files the checker executes admitted schemas and explicitly excludes unsupported groups. This measures the implemented subset, not full Draft 2020-12 conformance or practical testing superiority.
 
 See [saved verification](../results/milestone-1/manifest.json), [usage](USAGE.md) and [evidence log](EVIDENCE_LOG.md). Evidence includes 86 regression tests, 295 admitted official cases, 52 excluded cases, 43 oracle-checked research expectations and 197314 finite algebra assertions. These counts describe this recorded run and its code/input hashes.
+
+
+## Version 0.2 continuation
+
+`generate` supplies deterministic, incomplete literal/boundary/primitive recipes and content-addressed candidates. `select` indexes frozen oracle-agreed observations, distinguishes singleton outcome features from paired obligations, greedily adds both missing endpoints, and reverse-deletes redundant selected tests. Bounded exact enumeration independently establishes minima only for pools <=16. Reduction bundles retain source and selected reports and recompute selection on replay.
+
+`mutate` defines an explicit exploratory schema-mutation family; `tools/run_experiments.py` executes the frozen 32-subject offline study. It saves root discrepancy sets, finite-pool indistinguishability and per-schema/per-seed results. Mutation kills never guide the coverage-only selectors. `tools/audit_artifacts.py` checks raw metrics, exact distinct budgets, replay and all source/artifact hashes.
+
+See [protocol](../benchmarks/README.md) and [study summary](../results/milestone-2/summary.json). The study reduced target-bearing pools from 451 to 64 tests preserving 50 witnessed obligations, but pair guidance did not lead the separate mutation probe. Earlier background claims about first-ever novelty are not supported: set semantics, schema coverage/witness generation, RACC and paired MC/DC reduction have substantial prior work discussed in the manuscript.

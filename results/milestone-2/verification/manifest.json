@@ -1,0 +1,170 @@
+{
+  "evidence_id": "E-0003",
+  "milestone": "bounded corpus analysis and independent replay",
+  "status": "passed",
+  "recorded_utc": "2026-11-09T18:12:32.985785+00:00",
+  "base_commit": "c48fbe4ec1aa49f0b4bd2b8eb0797944981034fa",
+  "source_sha256": {
+    "examples/conjunction.instances.json": "7025daa73494720531ab675e025e31dc8ff2855235d3aa491d0d31d5ce930350",
+    "examples/conjunction.schema.json": "b8227b57a15c33e634cb799da2795ed8580c4f4c83aec3dd48ac53836ae1f707",
+    "pyproject.toml": "7fb3ddfef9aa8c47df19218c351f4dde7dc0a9a9cb5bb004f24c45870bdf8e87",
+    "requirements.lock": "db4048230eef8c3286f3775361aaca247ceb0d1a97bfc6b856c4eb5276d25b10",
+    "research-checks/check_semantic_model.py": "36161cc8009c8f15d0056acb35360dc4ae59f73a84ca4c75722608f56030c9a6",
+    "research-checks/finite-check-results.txt": "897a30a2bc97e46d30f44168db87e1fbcbd37ad0f69d6cd860200037e3874d0f",
+    "research-fixtures/schema-semantics.json": "146e8be56204624475854af5fb7f8d792a56974af6472471eebee3190300a098",
+    "research-fixtures/semantic-counterexamples.json": "835c61c0cb991044a09f036cab444f3b736b69040f9e3ed1da2c9eb37c935574",
+    "schema_coverage_lab/__init__.py": "4ff202b145d5f4b2ab48a60246bfa4f27046155344d3690029d4d51f8cb21db1",
+    "schema_coverage_lab/__main__.py": "f9f0286e18f8d09969c2f2ccd1a8baab1d0f5cc127722e23f62de264c5349c5b",
+    "schema_coverage_lab/checks.py": "42feaf51517f78ca71e82613d04315a4fa1602112f8d0666f9924a23df836472",
+    "schema_coverage_lab/coverage.py": "6866c0c8d8ec5e7dc09aab964c952b1622a78e7ab67938149d99f32732a637e6",
+    "schema_coverage_lab/generate.py": "1b7153c241a85bda15ba97f60ab3e43ecd5ee5a4a750f57b0f6aa69ef1329d9e",
+    "schema_coverage_lab/jsonio.py": "d12b0ca439d4d86fa12d3e1df4d13aa4dff52937627053507194c5d101ead967",
+    "schema_coverage_lab/mutate.py": "13421f07af77c45995a976a5172edeaafda64dc5446fcf607efead821c62ad8d",
+    "schema_coverage_lab/oracle.py": "58b267fcb88b577cfbb749c0ad28dedb7d61b84a72c8ca224432e340dd26d321",
+    "schema_coverage_lab/select.py": "484cf670c2b2153eacc8d1abbf4bfa252d8a0290ce0b0040617733be23cc323c",
+    "schema_coverage_lab/semantics.py": "705bea672f333cd6fce5f46bafa45bf0a1c7e5218e206853fdb0643c341b0f6a",
+    "tests/test_coverage.py": "7f8adb9906749ac7ee95e25487baac488360671f90038830382f8ed238bf9713",
+    "tests/test_fixtures_cli.py": "7ad72155ac93cf61261d8a9a272b71eacfc45da725837c0be23e650237ab1443",
+    "tests/test_generation_selection.py": "fab29d757fdcf638c2e2b03edc11fe448a293caf68950bdbd27422031b509848",
+    "tests/test_json_contract.py": "0abdc0f48e3637c5ab10f2745fa0e83c437094c769a11488274eff8d3689768a",
+    "tests/test_mutation_experiment.py": "b068a272ba77d4cc965a525a6e2dc2192be7b2ea5d707e1d70df9bd293663af6",
+    "tools/verify.py": "254780e5b71cadb1156e8ef20eb53dfb05fa6cc5b5c87366ba8dbcdffb70f5df",
+    "vendor/json-schema-test-suite/LICENSE": "837402bd25fad9b704265801ca3f92566a98157c1f9a7acd6f446299ba1c305a",
+    "vendor/json-schema-test-suite/README.md": "9dc3b53c35a66f12d8f0c3cbb58998ace2a4e58f101abd2f5829434816495bd6",
+    "vendor/json-schema-test-suite/manifest.json": "f42ef133a10eeb64ccccdbcf87bae8dff0182384c77c8ac074e858d2cf341eb5",
+    "vendor/json-schema-test-suite/tests/draft2020-12/allOf.json": "81045b06706a28f6aa337b485b41a764098e10ac73bb1d346ba0a4285a63e970",
+    "vendor/json-schema-test-suite/tests/draft2020-12/anyOf.json": "7a6fe41602496c256334ffa3e6fb457b26ac23b97ca03cb16b724ad21a7d216d",
+    "vendor/json-schema-test-suite/tests/draft2020-12/boolean_schema.json": "9c8828d325b88a0c632fca22405d5481548b49fb0f9f5536ee401e4d66aa8582",
+    "vendor/json-schema-test-suite/tests/draft2020-12/const.json": "83a148d2589cbd211e7e64b31763290f8869d763f513de4658e8d25f0fcc025e",
+    "vendor/json-schema-test-suite/tests/draft2020-12/enum.json": "1abe7eb883bde4a78c62f08e484e16f32b72ca5c1be725aa54d85cc4546b5031",
+    "vendor/json-schema-test-suite/tests/draft2020-12/exclusiveMaximum.json": "e37fc110c48e2a9de564579ceba3e8ab098a36f904dcc1ef02f8cf7b59dc0473",
+    "vendor/json-schema-test-suite/tests/draft2020-12/exclusiveMinimum.json": "0395a2423606d07943d3d355d1c9c4a474cc7cb544d3c8f266ceab801c5f0a6d",
+    "vendor/json-schema-test-suite/tests/draft2020-12/maximum.json": "dfbc88ef4ede2966250fb2ad44076856d51481ea01ce679cca70efe47606ee90",
+    "vendor/json-schema-test-suite/tests/draft2020-12/minimum.json": "f6a29cb574b76621da23636a636cf12cb31b01646b89543e6ce1a813376439a3",
+    "vendor/json-schema-test-suite/tests/draft2020-12/not.json": "1fd6ef263efd365680c6aaf8f23aa5430d7b9f80b84f46b1208b1ed8353c28b4",
+    "vendor/json-schema-test-suite/tests/draft2020-12/oneOf.json": "a8d80a786d07769cb9b8b9a8903ca4f7aa564446ae6b781c7f7f6ffea11ed363",
+    "vendor/json-schema-test-suite/tests/draft2020-12/type.json": "4c5cbe6cbcd28af73761091367b20e07d0403847e236c06c31fc27061bd81192"
+  },
+  "source_set_digest": "9d146e2eb3ca931a61c8684a8a0102011e08f5d131eaa7ea694cc4b71b58e6d8",
+  "environment": {
+    "python": "3.14.2",
+    "system": "Darwin",
+    "machine": "arm64",
+    "packages": {
+      "attrs": "26.1.0",
+      "iniconfig": "2.3.1",
+      "jsonschema": "4.26.0",
+      "jsonschema-specifications": "2025.9.1",
+      "packaging": "26.3",
+      "pluggy": "1.7.0",
+      "pygments": "2.21.0",
+      "pytest": "9.0.2",
+      "referencing": "0.37.0",
+      "rpds-py": "2026.9.1"
+    }
+  },
+  "suite_commit": "245a45abc90190c0bff04d97e6d2b541b4bb9f12",
+  "executions": [
+    {
+      "command": [
+        "python",
+        "-m",
+        "pytest",
+        "-q"
+      ],
+      "artifact": "pytest.txt",
+      "exit_status": 0,
+      "stderr": ""
+    },
+    {
+      "command": [
+        "python",
+        "research-checks/check_semantic_model.py"
+      ],
+      "artifact": "finite-identities.txt",
+      "exit_status": 0,
+      "stderr": ""
+    },
+    {
+      "command": [
+        "python",
+        "-m",
+        "schema_coverage_lab",
+        "check-fixtures",
+        "--input",
+        "research-fixtures/schema-semantics.json"
+      ],
+      "artifact": "schema-fixtures.json",
+      "exit_status": 0,
+      "stderr": ""
+    },
+    {
+      "command": [
+        "python",
+        "-m",
+        "schema_coverage_lab",
+        "check-fixtures",
+        "--input",
+        "research-fixtures/semantic-counterexamples.json"
+      ],
+      "artifact": "counterexamples.json",
+      "exit_status": 0,
+      "stderr": ""
+    },
+    {
+      "command": [
+        "python",
+        "-m",
+        "schema_coverage_lab",
+        "check-official"
+      ],
+      "artifact": "official-subset.json",
+      "exit_status": 0,
+      "stderr": ""
+    },
+    {
+      "command": [
+        "python",
+        "-m",
+        "schema_coverage_lab",
+        "analyze",
+        "--schema",
+        "examples/conjunction.schema.json",
+        "--corpus",
+        "examples/conjunction.instances.json"
+      ],
+      "artifact": "example-report.json",
+      "exit_status": 0,
+      "stderr": ""
+    },
+    {
+      "command": [
+        "python",
+        "-m",
+        "schema_coverage_lab",
+        "replay",
+        "--report",
+        "results/milestone-2/verification/example-report.json"
+      ],
+      "artifact": "replay.json",
+      "exit_status": 0,
+      "stderr": ""
+    }
+  ],
+  "artifact_sha256": {
+    "counterexamples.json": "47d21050d0a2e4a52c815cf9f6e8248e42d7f50b2852900ae00ba1581acb59d9",
+    "example-report.json": "e9d2a57153d602c6cd20a890947dd10f2150e1583f98b44d3bdc029f3a6c316d",
+    "finite-identities.txt": "897a30a2bc97e46d30f44168db87e1fbcbd37ad0f69d6cd860200037e3874d0f",
+    "official-subset.json": "20d9d741909ce3ae93a0c2a37f76a947b56f5178b441173c5d09bc7cecb99b13",
+    "pytest.txt": "2a4cbed12e139498f084fcb834587b6500659745ecd848e751bbc82c63ea3794",
+    "replay.json": "6343079d81178b741c80182d43f917f7c25c47ab85ebb51909f2c028731e47ff",
+    "schema-fixtures.json": "cb82c0bbcc9a8d74964f1aeaf234699ad26231ae8d314f8fbf10782ef74084a9"
+  },
+  "limitations": [
+    "Core checks are separate from the full selection study",
+    "No all-JSON feasibility solver",
+    "Pure-fragment subset only",
+    "No comparative utility or mutation experiment",
+    "Tested runtime is Python 3.14.2 macOS arm64 only"
+  ]
+}

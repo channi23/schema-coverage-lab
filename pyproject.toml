@@ -1,6 +1,6 @@
 [project]
 name = "schema-coverage-lab"
-version = "0.1.0"
+version = "0.2.0"
 description = "Bounded semantic unique-cause coverage for JSON Schema"
 requires-python = ">=3.11"
 dependencies = ["jsonschema==4.26.0"]

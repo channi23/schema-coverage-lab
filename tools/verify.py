@@ -1,5 +1,6 @@
 """Run the bounded milestone checks and save auditable, offline artifacts."""
 
+import argparse
 import hashlib
 import importlib.metadata
 import json
@@ -16,7 +17,12 @@ from schema_coverage_lab.jsonio import dumps, read
 
 
 def main():
-    out = ROOT / "results/milestone-1"
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--output", default="results/current/verification")
+    parser.add_argument("--evidence-id", default="local-verification")
+    parser.add_argument("--base-commit", default="unrecorded-local-run")
+    options = parser.parse_args()
+    out = ROOT / options.output
     out.mkdir(parents=True, exist_ok=True)
     commands = [
         (["-m", "pytest", "-q"], "pytest.txt"),
@@ -26,7 +32,7 @@ def main():
         (["-m", "schema_coverage_lab", "check-official"], "official-subset.json"),
         (["-m", "schema_coverage_lab", "analyze", "--schema", "examples/conjunction.schema.json",
           "--corpus", "examples/conjunction.instances.json"], "example-report.json"),
-        (["-m", "schema_coverage_lab", "replay", "--report", "results/milestone-1/example-report.json"], "replay.json"),
+        (["-m", "schema_coverage_lab", "replay", "--report", str(Path(options.output) / "example-report.json")], "replay.json"),
     ]
     # A failed rerun must not leave an earlier passing manifest/artifact set.
     for filename in [name for _, name in commands] + [name + ".stderr.txt" for _, name in commands] + ["manifest.json"]:
@@ -52,10 +58,10 @@ def main():
     source_hashes = {str(p.relative_to(ROOT)): hashlib.sha256(p.read_bytes()).hexdigest()
                      for p in sorted(inputs)}
     manifest = {
-        "evidence_id": "E-0002", "milestone": "bounded corpus analysis and independent replay",
+        "evidence_id": options.evidence_id, "milestone": "bounded corpus analysis and independent replay",
         "status": "failed" if failed else "passed",
         "recorded_utc": datetime.now(timezone.utc).isoformat(),
-        "base_commit": "0d3411da47df952bbc1bd678db25cf658343c7a4",
+        "base_commit": options.base_commit,
         "source_sha256": source_hashes, "source_set_digest": hashlib.sha256(dumps(source_hashes).encode()).hexdigest(),
         "environment": {"python": platform.python_version(), "system": platform.system(),
                         "machine": platform.machine(), "packages": {name: importlib.metadata.version(name)
@@ -65,12 +71,12 @@ def main():
         "executions": executions,
         "artifact_sha256": {p.name: hashlib.sha256(p.read_bytes()).hexdigest()
                             for p in sorted(out.iterdir()) if p.name != "manifest.json" and p.is_file()},
-        "limitations": ["No generated corpus or suite optimizer", "No all-JSON feasibility solver",
+        "limitations": ["Core checks are separate from the full selection study", "No all-JSON feasibility solver",
                         "Pure-fragment subset only", "No comparative utility or mutation experiment",
                         "Tested runtime is Python 3.14.2 macOS arm64 only"],
     }
     (out / "manifest.json").write_text(json.dumps(manifest, indent=2) + "\n")
-    print("Milestone checks " + ("failed" if failed else "passed") + "; artifacts in results/milestone-1")
+    print("Milestone checks " + ("failed" if failed else "passed") + "; artifacts in " + options.output)
     return failed
 
 

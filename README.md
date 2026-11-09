@@ -6,7 +6,7 @@ The objective is to determine which schema decisions admit meaningful independen
 
 ## Research and handoff
 
-All research and planning stages are consolidated on `main`. Stages 1–4 are complete as research/handoff deliverables; stage 5 now has a working corpus-analysis/replay milestone; generation, suite reduction and comparative experiments remain outstanding.
+All research and planning stages are consolidated on `main`. Stages 1–4 are complete as research/handoff deliverables; stage 5 now has the completed bounded generator, analyzer, reducer and reproducible offline study.
 
 | Stage | Deliverable | Tracking |
 |---|---|---|
@@ -26,7 +26,7 @@ PRs #6–#10 are merged. Stage 2 originally merged into the stage 1 branch and r
 - [Evidence log](docs/EVIDENCE_LOG.md): actions taken, commands, results, source revisions, and limitations.
 - [Codex project instructions](AGENTS.md): persistent workflow and documentation requirements.
 
-Issues #1–#4 are complete. Issue #5 remains open for the remaining implementation/testing backlog. Corpus analysis and independent witness replay are implemented; this does not complete the broader generation and experimental work.
+Issues #1–#4 are complete. Issue #5 now has bounded acceptance evidence: generation, analysis, reduction/replay and a reproducible study. Full-draft support and scholarly publication claims remain outside that completed scope.
 
 ## Run the prototype
 
@@ -54,3 +54,10 @@ python3 research-checks/check_semantic_model.py
 Expected result: `PASS: 197314 finite identity assertions across 65808 function/realizability models`.
 
 The finite script is research verification, separate from the implemented bounded coverage engine. Milestone 1 passed 86 regression tests, 295 admitted official-suite tests (52 explicitly excluded), and all 43 research-fixture expectations through an independent pinned validator. The example covers two obligations and replays successfully. These are subset/observed-witness results, not full-draft conformance, unbounded feasibility or demonstrated practical superiority. Generation, reduction and comparative experiments remain later work.
+
+
+## Completed bounded study
+
+Version 0.2.0 adds deterministic generation, pair-aware greedy/exact-small-pool reduction and replayable reduction bundles. 105 regression tests pass. A frozen 32-subject study produced 2304 equal-budget rows. On 21 subjects with witnessed independence targets, reduction retained all 50 targets while selecting 64 tests from 451 candidates. This does not establish a minimum or superior fault detection: at budget 8, pair-guided mutation coverage was 76.63%, below random 77.59% and boundary-first 91.86% on the declared probe.
+
+Run `python tools/run_experiments.py`, then `python tools/audit_artifacts.py` after a recorded verification run. See [protocol](benchmarks/README.md), [raw summary](results/milestone-2/summary.json), [usage](docs/USAGE.md) and [publication review](docs/PUBLICATION_REVIEW.md). The manuscript/source package will be linked after PDF compilation and author-review checks.
