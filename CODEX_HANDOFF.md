@@ -1,5 +1,7 @@
 # Codex handoff: implement a bounded semantic coverage experiment
 
+Milestone 1 update, 2026-11-09: supplied-corpus analysis, conservative support checking, independent oracle replay and the CLI checks below are implemented. See [usage](docs/USAGE.md), [architecture](docs/ARCHITECTURE.md), and [evidence](docs/EVIDENCE_LOG.md). Candidate generation, suite reduction and comparative experiments remain outside the completed milestone. The broader handoff below remains the roadmap.
+
 Prepared 2026-11-08. Read [the research report](docs/research/REPORT.md), chapters [1](docs/research/01-mcdc.md), [2](docs/research/02-json-schema.md), [3](docs/research/03-set-model.md), [uncertainties](docs/research/04-uncertainties.md) and [roadmap](docs/ROADMAP.md) before implementation. Issue #4 tracks this handoff; issue #5 tracks later implementation and experiments. Current workflow: the user authorized merging the research/planning PRs and now requests direct work on `main`. Follow [AGENTS.md](AGENTS.md) and the [documentation policy](docs/DOCUMENTATION_POLICY.md).
 
 ## Objective and stop condition
@@ -86,7 +88,7 @@ python3 research-checks/check_semantic_model.py
 
 It reports 197314 finite identity assertions across 65808 function/realizability models. It is not a validator, prototype, or proof of unbounded feasibility.
 
-Planned command contract for the implementation PR (these commands do not exist yet):
+Implemented command contract for milestone 1 (run from the repository root after installing the lock):
 
 ```sh
 python -m pytest
@@ -96,7 +98,7 @@ python -m schema_coverage_lab analyze --schema examples/conjunction.schema.json 
 python -m schema_coverage_lab replay --report results/conjunction.json
 ```
 
-The implementation may adjust interface names once, documenting the final commands. Add a single reproducible test entry point that creates no unsupported network side effects. Pin dependencies and suite SHA before running conformance checks. Run admitted official-suite cases and document exclusions; passing a subset is evidence for that subset, not full conformance. Oracle fixtures for deferred features test expectations independently of analyzer support.
+The final interface is documented in docs/USAGE.md; python tools/verify.py is the reproducible entry point. Dependencies are hash-locked and the suite commit is pinned. The recorded run passed the admitted official subset and both oracle fixture catalogs. Passing a subset is evidence for that subset, not full conformance. Oracle fixtures for deferred features test expectations independently of analyzer support.
 
 ## Stage gates
 

@@ -1,6 +1,6 @@
 {
   "dialect": "https://json-schema.org/draft/2020-12/schema",
-  "status": "Research-derived expectations; not executed during research. Pin an independent validator and run before treating as regression evidence.",
+  "status": "Research-derived expectations; unexecuted during research phase. All 23 expectations passed pinned jsonschema 4.26.0 oracle replay on 2026-11-09; see results/milestone-1/schema-fixtures.json.",
   "cases": [
     {
       "id": "E1-applicability",

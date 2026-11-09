@@ -1,5 +1,7 @@
 # JSON Schema Draft 2020-12 semantics and coverage applicability
 
+Implementation follow-up, 2026-11-09: the bounded corpus analyzer and independent witness replay are now implemented. Both original research catalogs passed all 43 oracle expectations; 295 admitted official cases passed and 52 were explicitly excluded. The research-phase statements below about unexecuted examples describe the earlier baseline. See [current status](../STATUS.md) and [evidence](../EVIDENCE_LOG.md) for current scope and artifacts. Global feasibility, full-draft coverage and practical superiority remain unproved.
+
 Research date: 2026-11-08. Scope: the fixed Draft 2020-12 dialect, not an assertion about a newer dialect. Primary sources are linked at point of use. Counterexamples and coverage proposals below are original deductions, not claims that the specification defines MC/DC.
 
 ## What semantic information must coverage retain?

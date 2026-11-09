@@ -1,0 +1,165 @@
+{
+  "evidence_id": "E-0002",
+  "milestone": "bounded corpus analysis and independent replay",
+  "status": "passed",
+  "recorded_utc": "2026-11-09T15:46:01.932678+00:00",
+  "base_commit": "0d3411da47df952bbc1bd678db25cf658343c7a4",
+  "source_sha256": {
+    "examples/conjunction.instances.json": "7025daa73494720531ab675e025e31dc8ff2855235d3aa491d0d31d5ce930350",
+    "examples/conjunction.schema.json": "b8227b57a15c33e634cb799da2795ed8580c4f4c83aec3dd48ac53836ae1f707",
+    "pyproject.toml": "701e403f5a620575c2111d5296c53494d0831154d70d7d2f9c4059a4e3161de8",
+    "requirements.lock": "db4048230eef8c3286f3775361aaca247ceb0d1a97bfc6b856c4eb5276d25b10",
+    "research-checks/check_semantic_model.py": "36161cc8009c8f15d0056acb35360dc4ae59f73a84ca4c75722608f56030c9a6",
+    "research-checks/finite-check-results.txt": "897a30a2bc97e46d30f44168db87e1fbcbd37ad0f69d6cd860200037e3874d0f",
+    "research-fixtures/schema-semantics.json": "146e8be56204624475854af5fb7f8d792a56974af6472471eebee3190300a098",
+    "research-fixtures/semantic-counterexamples.json": "835c61c0cb991044a09f036cab444f3b736b69040f9e3ed1da2c9eb37c935574",
+    "schema_coverage_lab/__init__.py": "8515f955be1403841a5ae7db253c184635c07b90a4e8ba22531160df3750bbb2",
+    "schema_coverage_lab/__main__.py": "304d618fd7f38a278c5d2ef9eb9fea5a26edbbe2f9f73299f4e0df959a432707",
+    "schema_coverage_lab/checks.py": "42feaf51517f78ca71e82613d04315a4fa1602112f8d0666f9924a23df836472",
+    "schema_coverage_lab/coverage.py": "b329f0f49f431ee42bb9771d11d26c49fe51009eacc89a0d1dfb44b0bc2c15e3",
+    "schema_coverage_lab/jsonio.py": "a2fbfc1a93e58676638725c5dee8d78cf33d296c8ea3769c9b72ec3ba8d0e2a0",
+    "schema_coverage_lab/oracle.py": "58b267fcb88b577cfbb749c0ad28dedb7d61b84a72c8ca224432e340dd26d321",
+    "schema_coverage_lab/semantics.py": "705bea672f333cd6fce5f46bafa45bf0a1c7e5218e206853fdb0643c341b0f6a",
+    "tests/test_coverage.py": "7f8adb9906749ac7ee95e25487baac488360671f90038830382f8ed238bf9713",
+    "tests/test_fixtures_cli.py": "7ad72155ac93cf61261d8a9a272b71eacfc45da725837c0be23e650237ab1443",
+    "tests/test_json_contract.py": "0abdc0f48e3637c5ab10f2745fa0e83c437094c769a11488274eff8d3689768a",
+    "tools/verify.py": "1f0e0a21c25eede34dc3063edbf7b5b8f054ac7372f8d6b17dcdc426f46300d7",
+    "vendor/json-schema-test-suite/LICENSE": "837402bd25fad9b704265801ca3f92566a98157c1f9a7acd6f446299ba1c305a",
+    "vendor/json-schema-test-suite/README.md": "9dc3b53c35a66f12d8f0c3cbb58998ace2a4e58f101abd2f5829434816495bd6",
+    "vendor/json-schema-test-suite/manifest.json": "f42ef133a10eeb64ccccdbcf87bae8dff0182384c77c8ac074e858d2cf341eb5",
+    "vendor/json-schema-test-suite/tests/draft2020-12/allOf.json": "81045b06706a28f6aa337b485b41a764098e10ac73bb1d346ba0a4285a63e970",
+    "vendor/json-schema-test-suite/tests/draft2020-12/anyOf.json": "7a6fe41602496c256334ffa3e6fb457b26ac23b97ca03cb16b724ad21a7d216d",
+    "vendor/json-schema-test-suite/tests/draft2020-12/boolean_schema.json": "9c8828d325b88a0c632fca22405d5481548b49fb0f9f5536ee401e4d66aa8582",
+    "vendor/json-schema-test-suite/tests/draft2020-12/const.json": "83a148d2589cbd211e7e64b31763290f8869d763f513de4658e8d25f0fcc025e",
+    "vendor/json-schema-test-suite/tests/draft2020-12/enum.json": "1abe7eb883bde4a78c62f08e484e16f32b72ca5c1be725aa54d85cc4546b5031",
+    "vendor/json-schema-test-suite/tests/draft2020-12/exclusiveMaximum.json": "e37fc110c48e2a9de564579ceba3e8ab098a36f904dcc1ef02f8cf7b59dc0473",
+    "vendor/json-schema-test-suite/tests/draft2020-12/exclusiveMinimum.json": "0395a2423606d07943d3d355d1c9c4a474cc7cb544d3c8f266ceab801c5f0a6d",
+    "vendor/json-schema-test-suite/tests/draft2020-12/maximum.json": "dfbc88ef4ede2966250fb2ad44076856d51481ea01ce679cca70efe47606ee90",
+    "vendor/json-schema-test-suite/tests/draft2020-12/minimum.json": "f6a29cb574b76621da23636a636cf12cb31b01646b89543e6ce1a813376439a3",
+    "vendor/json-schema-test-suite/tests/draft2020-12/not.json": "1fd6ef263efd365680c6aaf8f23aa5430d7b9f80b84f46b1208b1ed8353c28b4",
+    "vendor/json-schema-test-suite/tests/draft2020-12/oneOf.json": "a8d80a786d07769cb9b8b9a8903ca4f7aa564446ae6b781c7f7f6ffea11ed363",
+    "vendor/json-schema-test-suite/tests/draft2020-12/type.json": "4c5cbe6cbcd28af73761091367b20e07d0403847e236c06c31fc27061bd81192"
+  },
+  "source_set_digest": "f7f8a552a00272767323987b38e6dc95ce6b0a73bd1e63c2025ef42e5955fca2",
+  "environment": {
+    "python": "3.14.2",
+    "system": "Darwin",
+    "machine": "arm64",
+    "packages": {
+      "attrs": "26.1.0",
+      "iniconfig": "2.3.1",
+      "jsonschema": "4.26.0",
+      "jsonschema-specifications": "2025.9.1",
+      "packaging": "26.3",
+      "pluggy": "1.7.0",
+      "pygments": "2.21.0",
+      "pytest": "9.0.2",
+      "referencing": "0.37.0",
+      "rpds-py": "2026.9.1"
+    }
+  },
+  "suite_commit": "245a45abc90190c0bff04d97e6d2b541b4bb9f12",
+  "executions": [
+    {
+      "command": [
+        "python",
+        "-m",
+        "pytest",
+        "-q"
+      ],
+      "artifact": "pytest.txt",
+      "exit_status": 0,
+      "stderr": ""
+    },
+    {
+      "command": [
+        "python",
+        "research-checks/check_semantic_model.py"
+      ],
+      "artifact": "finite-identities.txt",
+      "exit_status": 0,
+      "stderr": ""
+    },
+    {
+      "command": [
+        "python",
+        "-m",
+        "schema_coverage_lab",
+        "check-fixtures",
+        "--input",
+        "research-fixtures/schema-semantics.json"
+      ],
+      "artifact": "schema-fixtures.json",
+      "exit_status": 0,
+      "stderr": ""
+    },
+    {
+      "command": [
+        "python",
+        "-m",
+        "schema_coverage_lab",
+        "check-fixtures",
+        "--input",
+        "research-fixtures/semantic-counterexamples.json"
+      ],
+      "artifact": "counterexamples.json",
+      "exit_status": 0,
+      "stderr": ""
+    },
+    {
+      "command": [
+        "python",
+        "-m",
+        "schema_coverage_lab",
+        "check-official"
+      ],
+      "artifact": "official-subset.json",
+      "exit_status": 0,
+      "stderr": ""
+    },
+    {
+      "command": [
+        "python",
+        "-m",
+        "schema_coverage_lab",
+        "analyze",
+        "--schema",
+        "examples/conjunction.schema.json",
+        "--corpus",
+        "examples/conjunction.instances.json"
+      ],
+      "artifact": "example-report.json",
+      "exit_status": 0,
+      "stderr": ""
+    },
+    {
+      "command": [
+        "python",
+        "-m",
+        "schema_coverage_lab",
+        "replay",
+        "--report",
+        "results/milestone-1/example-report.json"
+      ],
+      "artifact": "replay.json",
+      "exit_status": 0,
+      "stderr": ""
+    }
+  ],
+  "artifact_sha256": {
+    "counterexamples.json": "47d21050d0a2e4a52c815cf9f6e8248e42d7f50b2852900ae00ba1581acb59d9",
+    "example-report.json": "e56f06f3bd72ecf6891d6952c683a20faf7a6d9f222b1bb5613b06090a650a7c",
+    "finite-identities.txt": "897a30a2bc97e46d30f44168db87e1fbcbd37ad0f69d6cd860200037e3874d0f",
+    "official-subset.json": "20d9d741909ce3ae93a0c2a37f76a947b56f5178b441173c5d09bc7cecb99b13",
+    "pytest.txt": "c154f74488cdc6d8b65e68851c803f49a0e8814d5274a65f8b3d57f0850275bd",
+    "replay.json": "6343079d81178b741c80182d43f917f7c25c47ab85ebb51909f2c028731e47ff",
+    "schema-fixtures.json": "cb82c0bbcc9a8d74964f1aeaf234699ad26231ae8d314f8fbf10782ef74084a9"
+  },
+  "limitations": [
+    "No generated corpus or suite optimizer",
+    "No all-JSON feasibility solver",
+    "Pure-fragment subset only",
+    "No comparative utility or mutation experiment",
+    "Tested runtime is Python 3.14.2 macOS arm64 only"
+  ]
+}

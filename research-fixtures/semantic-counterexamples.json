@@ -1,6 +1,6 @@
 {
   "dialect": "https://json-schema.org/draft/2020-12/schema",
-  "purpose": "Expected outcomes derived from specification; not yet executed through an independent validator",
+  "purpose": "Specification-derived expectations; all 20 outcomes passed pinned jsonschema 4.26.0 oracle replay on 2026-11-09; see results/milestone-1/counterexamples.json",
   "cases": [
     {
       "name": "triple overlap is not parity",

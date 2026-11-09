@@ -6,7 +6,7 @@ The objective is to determine which schema decisions admit meaningful independen
 
 ## Research and handoff
 
-All research and planning stages are consolidated on `main`. Stages 1–4 are complete as research/handoff deliverables; stage 5 has a completed plan but its implementation and experiments remain outstanding.
+All research and planning stages are consolidated on `main`. Stages 1–4 are complete as research/handoff deliverables; stage 5 now has a working corpus-analysis/replay milestone; generation, suite reduction and comparative experiments remain outstanding.
 
 | Stage | Deliverable | Tracking |
 |---|---|---|
@@ -26,7 +26,22 @@ PRs #6–#10 are merged. Stage 2 originally merged into the stage 1 branch and r
 - [Evidence log](docs/EVIDENCE_LOG.md): actions taken, commands, results, source revisions, and limitations.
 - [Codex project instructions](AGENTS.md): persistent workflow and documentation requirements.
 
-Issues #1–#4 are complete. Issue #5 remains the implementation/testing backlog; merging its planning document does not complete the prototype.
+Issues #1–#4 are complete. Issue #5 remains open for the remaining implementation/testing backlog. Corpus analysis and independent witness replay are implemented; this does not complete the broader generation and experimental work.
+
+## Run the prototype
+
+From the repository root:
+
+```sh
+python3 -m venv .venv
+source .venv/bin/activate
+python -m pip install --require-hashes -r requirements.lock
+python tools/verify.py
+python -m schema_coverage_lab analyze --schema examples/conjunction.schema.json --corpus examples/conjunction.instances.json --output results/example.json
+python -m schema_coverage_lab replay --report results/example.json
+```
+
+See [usage](docs/USAGE.md), [architecture](docs/ARCHITECTURE.md), and the [recorded verification manifest](results/milestone-1/manifest.json). Tested runtime: Python 3.14.2, macOS arm64. Analysis/replay run offline after dependency installation.
 
 ## What has been verified
 
@@ -38,4 +53,4 @@ python3 research-checks/check_semantic_model.py
 
 Expected result: `PASS: 197314 finite identity assertions across 65808 function/realizability models`.
 
-This is research verification, not a JSON Schema validator or production coverage engine. The JSON fixture expectations were derived from the specification and syntax-checked; they have not yet been run against an independent validator. Production implementation, validator conformance, generation scalability and comparative experiments remain later work.
+The finite script is research verification, separate from the implemented bounded coverage engine. Milestone 1 passed 86 regression tests, 295 admitted official-suite tests (52 explicitly excluded), and all 43 research-fixture expectations through an independent pinned validator. The example covers two obligations and replays successfully. These are subset/observed-witness results, not full-draft conformance, unbounded feasibility or demonstrated practical superiority. Generation, reduction and comparative experiments remain later work.

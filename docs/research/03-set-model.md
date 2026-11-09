@@ -1,5 +1,7 @@
 # Set-theoretic semantic coverage for JSON Schema
 
+Implementation follow-up, 2026-11-09: the bounded corpus analyzer and independent witness replay are now implemented. Both original research catalogs passed all 43 oracle expectations; 295 admitted official cases passed and 52 were explicitly excluded. The research-phase statements below about unexecuted examples describe the earlier baseline. See [current status](../STATUS.md) and [evidence](../EVIDENCE_LOG.md) for current scope and artifacts. Global feasibility, full-draft coverage and practical superiority remain unproved.
+
 Research date: 2026-11-08. This chapter distinguishes specification facts from project-derived definitions and proofs. The proposed criterion is **semantic unique-cause independence coverage**, not a certification claim or validator source-code MC/DC. All sources below were accessed on the research date.
 
 ## Which semantic algebra is justified?

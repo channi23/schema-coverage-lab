@@ -1,0 +1,57 @@
+{
+  "repository": "https://github.com/json-schema-org/JSON-Schema-Test-Suite",
+  "commit": "245a45abc90190c0bff04d97e6d2b541b4bb9f12",
+  "dialect": "draft2020-12",
+  "selection": "Twelve pure-fragment keyword files; unsupported groups excluded explicitly by support checker",
+  "license": "LICENSE",
+  "files": [
+    {
+      "path": "tests/draft2020-12/allOf.json",
+      "sha256": "81045b06706a28f6aa337b485b41a764098e10ac73bb1d346ba0a4285a63e970"
+    },
+    {
+      "path": "tests/draft2020-12/anyOf.json",
+      "sha256": "7a6fe41602496c256334ffa3e6fb457b26ac23b97ca03cb16b724ad21a7d216d"
+    },
+    {
+      "path": "tests/draft2020-12/boolean_schema.json",
+      "sha256": "9c8828d325b88a0c632fca22405d5481548b49fb0f9f5536ee401e4d66aa8582"
+    },
+    {
+      "path": "tests/draft2020-12/const.json",
+      "sha256": "83a148d2589cbd211e7e64b31763290f8869d763f513de4658e8d25f0fcc025e"
+    },
+    {
+      "path": "tests/draft2020-12/enum.json",
+      "sha256": "1abe7eb883bde4a78c62f08e484e16f32b72ca5c1be725aa54d85cc4546b5031"
+    },
+    {
+      "path": "tests/draft2020-12/exclusiveMaximum.json",
+      "sha256": "e37fc110c48e2a9de564579ceba3e8ab098a36f904dcc1ef02f8cf7b59dc0473"
+    },
+    {
+      "path": "tests/draft2020-12/exclusiveMinimum.json",
+      "sha256": "0395a2423606d07943d3d355d1c9c4a474cc7cb544d3c8f266ceab801c5f0a6d"
+    },
+    {
+      "path": "tests/draft2020-12/maximum.json",
+      "sha256": "dfbc88ef4ede2966250fb2ad44076856d51481ea01ce679cca70efe47606ee90"
+    },
+    {
+      "path": "tests/draft2020-12/minimum.json",
+      "sha256": "f6a29cb574b76621da23636a636cf12cb31b01646b89543e6ce1a813376439a3"
+    },
+    {
+      "path": "tests/draft2020-12/not.json",
+      "sha256": "1fd6ef263efd365680c6aaf8f23aa5430d7b9f80b84f46b1208b1ed8353c28b4"
+    },
+    {
+      "path": "tests/draft2020-12/oneOf.json",
+      "sha256": "a8d80a786d07769cb9b8b9a8903ca4f7aa564446ae6b781c7f7f6ffea11ed363"
+    },
+    {
+      "path": "tests/draft2020-12/type.json",
+      "sha256": "4c5cbe6cbcd28af73761091367b20e07d0403847e236c06c31fc27061bd81192"
+    }
+  ]
+}

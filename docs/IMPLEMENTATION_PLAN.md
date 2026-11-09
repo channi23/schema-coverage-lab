@@ -1,6 +1,8 @@
 # Later implementation and reproducible testing
 
-Issue #5. This stage is a planning deliverable. No production analyzer, generator, validator integration, conformance run or comparative experiment is implemented by this draft. The research and handoff are now consolidated on `main`. Follow [CODEX_HANDOFF.md](../CODEX_HANDOFF.md) and implement directly on `main` under the [documentation policy](DOCUMENTATION_POLICY.md).
+Milestone 1 update, 2026-11-09: increments A and B are implemented for pure-v1, with 86 regression tests, 295 admitted official tests and 43 independent-oracle research expectations passing. Increment C is limited to supplied-corpus finite-domain analysis; generation and suite reduction remain. Increment D is unstarted. See [current status](STATUS.md), [usage](USAGE.md) and [evidence](EVIDENCE_LOG.md).
+
+Issue #5. This stage is a planning deliverable. The original planning delivery contained no implementation. The current corpus-analysis/replay milestone is recorded above; the broader generator and experiments remain open. The research and handoff are now consolidated on `main`. Follow [CODEX_HANDOFF.md](../CODEX_HANDOFF.md) and implement directly on `main` under the [documentation policy](DOCUMENTATION_POLICY.md).
 
 ## Proposed implementation increments
 

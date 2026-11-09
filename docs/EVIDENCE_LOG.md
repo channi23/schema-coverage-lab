@@ -44,3 +44,37 @@ Scope: Boolean/set identities only; no JSON Schema conformance or unbounded feas
 **Documentation check before commit:** all repository-local Markdown links in the 19-file complete documentation/research tree resolved; no missing targets. The commit is based on the consolidated main tree and preserves existing research artifacts.
 
 **Completion verification:** after documentation commit `5d8b204a8cafb8e950044d381ac98852aacaf84d`, all 19 repository files were fetched from `main` and matched the intended research/documentation contents. GitHub metadata confirmed PRs #6–#10 merged, issues #1–#4 closed, and issue #5 open. Local Markdown targets resolved in the complete tree. This final entry records those completed checks; it does not claim execution of the outstanding prototype or validator tests.
+
+## E-0002 — Corpus-analysis prototype and independent witness replay — 2026-11-09
+
+**Objective:** implement the first bounded milestone of issue #5 in this chat, on main, with code, tests and accompanying documentation. Stop at supplied-corpus analysis/replay; defer test generation, pair-aware reduction and utility experiments.
+
+**Starting revision:** `0d3411da47df952bbc1bd678db25cf658343c7a4`. The repository was inspected through GitHub and materialized as a local execution snapshot; no implementation code existed. Existing instructions required direct work on main, preserved occurrence identities and documented evidence.
+
+**Implemented:** strict exact-number JSON parsing and structural equality, meta-schema/support checks, pure-v1 evaluation and local catalog, deterministic candidate/suite observations, strict unique-cause pairs, domain-qualified statuses/scores, independent root/child/applicator oracle comparisons, full-report replay and offline CLI. Added usage/architecture documents, a reproducible verification entry point, pinned dependencies and a licensed official-suite subset. No compiler code was copied.
+
+**Decision:** use exact Decimal parsing and normalize integral decimals to integers only at the stock oracle boundary. This avoids Decimal integer classification mismatch without replacing oracle algorithms. Report identity uses documented exact canonical JSON, while the experiment manifest hashes raw source/input files. Unknown all-JSON feasibility is never inferred from finite absence. Unsupported schemas receive no fabricated complete catalog/percentage.
+
+**Environment and provenance:** Python 3.14.2, macOS/Darwin arm64; jsonschema 4.26.0 with Draft202012Validator, format assertion disabled, network reference retrieval denied. `requirements.lock` pins all ten transitive runtime/test packages and PyPI release-artifact hashes. Official suite commit: `245a45abc90190c0bff04d97e6d2b541b4bb9f12`; twelve selected files, original MIT license and exact source bytes retained. Package/API sources are linked in [architecture](ARCHITECTURE.md).
+
+**Installation checks executed:** initial restricted-network package lookup could not resolve the package host. After approved dependency download, `python3 -m venv work/verified-venv` and `work/verified-venv/bin/python -m pip install --disable-pip-version-check --no-index --find-links work/wheels --require-hashes -r work/repo/requirements.lock` completed, exit 0. This is a fresh environment with hash verification from local packages, not an unpinned global install. The final verification used that environment; package installation is the only required network step for a fresh user environment.
+
+**Verification executed:** from the repository execution snapshot, `../verified-venv/bin/python tools/verify.py`, exit 0. It invoked the following recorded commands using that same Python:
+
+```sh
+python -m pytest -q
+python research-checks/check_semantic_model.py
+python -m schema_coverage_lab check-fixtures --input research-fixtures/schema-semantics.json
+python -m schema_coverage_lab check-fixtures --input research-fixtures/semantic-counterexamples.json
+python -m schema_coverage_lab check-official
+python -m schema_coverage_lab analyze --schema examples/conjunction.schema.json --corpus examples/conjunction.instances.json
+python -m schema_coverage_lab replay --report results/milestone-1/example-report.json
+```
+
+**Observed results:** 86 pytest cases passed; 197314 finite Boolean/set assertions across 65808 models passed; both research catalogs passed all 23 + 20 oracle expectations; 295 admitted official cases passed and 52 were excluded explicitly for unsupported schemas. The example reported two covered obligations, three local observations and verified replay. All seven verification commands exited 0. The regression suite also tests malformed/duplicate-key inputs, exact numeric equality, unsupported/infeasible/unknown distinctions, local-vs-root influence, coupled predicates, pair endpoints split across suites, deterministic order, CLI exit codes and rejection of altered report evidence. No semantic/oracle disagreement was observed in these cases. Final review identified that expanded observation reports could outgrow the strict replay loader even when inputs fit; an explicit output admission check and regression were added. The final rerun includes that correction.
+
+**Saved artifacts:** [verification manifest](../results/milestone-1/manifest.json), actual pytest and finite-check outputs, both fixture results, official selected/excluded results, example report and replay. The manifest records commands, statuses, environment and hashes of all executed code, test inputs and outputs. Verified source-set digest: `f7f8a552a00272767323987b38e6dc95ce6b0a73bd1e63c2025ef42e5955fca2`.
+
+**Interpretation and limits:** these results establish observed behavior of the admitted subset under one tested environment, not full-draft conformance, a global feasibility solver, compiler execution MC/DC, formal proof of engine correctness, optimal test sets or practical superiority. The oracle supports some deferred fixture semantics that the analyzer deliberately rejects. Replay checks full consistency under the same recorded environment; it is not a signature or cross-version compatibility guarantee. No generated corpus, optimizer, comparative or mutation experiment, product release or multi-platform test was performed.
+
+**Next:** keep issue #5 open for deterministic candidate generation, pair-aware suite reduction and comparative experiments. Historical research-phase statements are preserved with dated implementation follow-ups. Final publication checks should match remote file contents against this reviewed snapshot and preserve other contributors' changes.
