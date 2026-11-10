@@ -1,5 +1,7 @@
 # Schema Coverage Lab
 
+**Start with the plain-language explanation:** [What I Built and How to Understand It](docs/EXPLAINER.md), including the research crux, JSON/set examples, test classifications, reduction and result limits.
+
 **Read the complete study:** [9-page manuscript](paper/manuscript.pdf), [editable source and reading guide](paper/README.md), and [publication review](docs/PUBLICATION_REVIEW.md).
 
 Research into MC/DC-inspired semantic test coverage for JSON Schema Draft 2020-12.
